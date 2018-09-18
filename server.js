@@ -9,6 +9,8 @@ app.use(cors())
 
 const recipes = require('./server/routes/recipes');
 app.use('/recipes', recipes);
+const autocompleteIngredientName = require('./server/routes/autocomplete-Ingredient-Name');
+app.use('/autocomplete-ingredient-name', autocompleteIngredientName);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 

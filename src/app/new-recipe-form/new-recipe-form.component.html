@@ -24,7 +24,7 @@
         <div>
             <span>Inredients:</span>
                 <mat-form-field>
-                        <input matInput placeholder="Ingredient name">
+                        <input matInput placeholder="Ingredient name" (keyup)="onKey($event)">
                 </mat-form-field>
                 <mat-form-field>
                         <input matInput placeholder="Ingredient units">
@@ -46,7 +46,7 @@
         <button>Add Recipe</button>
     </div>  <!--recipeForm-->
     <div id="added_ingredients">
-        
+
     </div> 
 </div>
       

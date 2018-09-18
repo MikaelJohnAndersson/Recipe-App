@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AutocompleteIngredientNameService } from '../autocomplete-ingredient-name.service';
 
 @Component({
   selector: 'app-new-recipe-form',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewRecipeFormComponent implements OnInit {
 
-  constructor() { }
+  public autoCompleteValues;
+  constructor(private autocompleteIngredientNameService: AutocompleteIngredientNameService) { }
 
   ngOnInit() {
+
+  }
+
+  onKey(event: any) { 
+    this.autocompleteIngredientNameService.autoCompleteIngredientName(event.target.value).subscribe(
+      data => {this.autoCompleteValues = data;}
+    );
   }
 
 }

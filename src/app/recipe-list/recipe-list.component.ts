@@ -14,7 +14,7 @@ export class RecipeListComponent implements OnInit {
 
   ngOnInit() {
     this.recipesService.getAllRecipes().subscribe(
-      data => {this.recipes = data; console.log(this.recipes)}, 
+      data => {this.recipes = data}, 
       err => console.log(err), 
       () => console.log("Done loading recipes"));
     };
