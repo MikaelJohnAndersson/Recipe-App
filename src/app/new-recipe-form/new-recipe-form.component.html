@@ -24,8 +24,11 @@
         <div>
             <span>Inredients:</span>
                 <mat-form-field>
-                        <input matInput placeholder="Ingredient name" (keyup)="onKey($event)">
+                        <input matInput placeholder="Ingredient name" (keyup)="onKey($event)" [matAutocomplete]="auto">
                 </mat-form-field>
+                <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let autoCompleteValue of autoCompleteValues" [value]="autoCompleteValue.Namn">{{autoCompleteValue.Namn}}</mat-option>
+                      </mat-autocomplete>
                 <mat-form-field>
                         <input matInput placeholder="Ingredient units">
                 </mat-form-field>
