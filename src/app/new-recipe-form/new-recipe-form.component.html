@@ -21,13 +21,13 @@
                 <textarea matInput placeholder="Instructions"></textarea>
         </mat-form-field>
 
-        <div>
-            <span>Inredients:</span>
+        <span>Ingredients:</span>
+        <div *ngFor="let count of counter()">
                 <mat-form-field>
                         <input matInput placeholder="Ingredient name" (keyup)="onKey($event)" [matAutocomplete]="auto">
                 </mat-form-field>
                 <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let autoCompleteValue of autoCompleteValues" [value]="autoCompleteValue.Namn">{{autoCompleteValue.Namn}}</mat-option>
+                        <mat-option *ngFor="let ingredientAutoCompleteValue of ingredientAutoCompleteValues" [value]="ingredientAutoCompleteValue.Namn">{{ingredientAutoCompleteValue.Namn}}</mat-option>
                       </mat-autocomplete>
                 <mat-form-field>
                         <input matInput placeholder="Ingredient units">
@@ -39,8 +39,11 @@
                     <mat-option value="ltr">Ltr</mat-option>
                 </mat-select>
                 </mat-form-field>
-                <button>Add Ingredient</button>
+                <mat-form-field>
+                        <input matInput placeholder="Ingredient eq in grams">
+                </mat-form-field>
         </div>
+        <button (click) = "onAddNewIngredient()">Add new ingredient</button>
       
         <mat-form-field>
                 <input matInput placeholder="IMG url">
@@ -48,8 +51,5 @@
 
         <button>Add Recipe</button>
     </div>  <!--recipeForm-->
-    <div id="added_ingredients">
-
-    </div> 
 </div>
       

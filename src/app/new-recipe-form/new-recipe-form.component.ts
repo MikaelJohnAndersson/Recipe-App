@@ -8,17 +8,26 @@ import { AutocompleteIngredientNameService } from '../autocomplete-ingredient-na
 })
 export class NewRecipeFormComponent implements OnInit {
 
-  public autoCompleteValues;
+  public ingredientAutoCompleteValues;
+  public ingredientCount;
   constructor(private autocompleteIngredientNameService: AutocompleteIngredientNameService) { }
 
   ngOnInit() {
-
+    this.ingredientCount = 1;
   }
-
+  
   onKey(event: any) { 
     this.autocompleteIngredientNameService.autoCompleteIngredientName(event.target.value).subscribe(
-      data => {this.autoCompleteValues = data;}
+      data => {this.ingredientAutoCompleteValues = data;}
     );
+  }
+
+  onAddNewIngredient(){
+    this.ingredientCount++;
+  }
+
+  counter(){
+    return new Array(this.ingredientCount);
   }
 
 }

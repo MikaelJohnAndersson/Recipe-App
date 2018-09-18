@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
 import { AppComponent } from './app.component';
 import { RecipesService } from './recipes.service';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
