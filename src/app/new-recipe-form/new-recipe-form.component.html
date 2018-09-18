@@ -1,0 +1,52 @@
+<div class="container">
+    <div id="recipe_form">
+        <mat-form-field>
+          <input matInput placeholder="Recipe name">
+        </mat-form-field>
+      
+        <mat-form-field>
+          <textarea matInput placeholder="Description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+        <mat-select placeholder="No. of servings">
+                <mat-option value="2">2</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="8">8</mat-option>
+                <mat-option value="10">10</mat-option>
+        </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+                <textarea matInput placeholder="Instructions"></textarea>
+        </mat-form-field>
+
+        <div>
+            <span>Inredients:</span>
+                <mat-form-field>
+                        <input matInput placeholder="Ingredient name">
+                </mat-form-field>
+                <mat-form-field>
+                        <input matInput placeholder="Ingredient units">
+                </mat-form-field>
+                <mat-form-field>
+                <mat-select placeholder="Ingredient measuring unit">
+                    <mat-option value="st">St</mat-option>
+                    <mat-option value="kg">Kg</mat-option>
+                    <mat-option value="ltr">Ltr</mat-option>
+                </mat-select>
+                </mat-form-field>
+                <button>Add Ingredient</button>
+        </div>
+      
+        <mat-form-field>
+                <input matInput placeholder="IMG url">
+        </mat-form-field>
+
+        <button>Add Recipe</button>
+    </div>  <!--recipeForm-->
+    <div id="added_ingredients">
+        
+    </div> 
+</div>
+      

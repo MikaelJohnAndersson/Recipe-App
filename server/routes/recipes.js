@@ -1,0 +1,13 @@
+const express = require('express'); 
+const router = express.Router(); 
+const mongojs = require('mongojs');
+var db = mongojs("mongodb://localhost:27017/recipedb", ["recipes", "nutrients"]);
+
+router.get('/', function(req, res){
+    db.recipes.find(function(err, recipes){
+        if (err) throw err;
+        res.json(recipes);
+    });
+}); 
+
+module.exports = router;
