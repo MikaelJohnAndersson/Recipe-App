@@ -16,7 +16,7 @@ export class NewRecipeFormComponent implements OnInit {
     this.ingredientCount = 1;
   }
   
-  onKey(event: any) { 
+  onIngredientInputEvent(event: any) { 
     this.autocompleteIngredientNameService.autoCompleteIngredientName(event.target.value).subscribe(
       data => {this.ingredientAutoCompleteValues = data;}
     );

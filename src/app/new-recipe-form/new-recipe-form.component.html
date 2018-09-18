@@ -1,55 +1,60 @@
 <div class="container">
     <div id="recipe_form">
-        <mat-form-field>
-          <input matInput placeholder="Recipe name">
+            <!--TODO: Implement form validation-->
+        <form action="http://localhost:3000/addRecipe" method="post" >
+        <mat-form-field hintLabel="Eg. &quot;Spaghetti bolognese&quot;">
+          <input matInput placeholder="Recipe name" name="recipe_name">
         </mat-form-field>
       
-        <mat-form-field>
-          <textarea matInput placeholder="Description"></textarea>
+        <mat-form-field hintLabel="A short description of the dish.">
+          <input matInput placeholder="Short description" name="recipe_desc">
         </mat-form-field>
 
-        <mat-form-field>
-        <mat-select placeholder="No. of servings">
-                <mat-option value="2">2</mat-option>
-                <mat-option value="4">4</mat-option>
-                <mat-option value="8">8</mat-option>
-                <mat-option value="10">10</mat-option>
-        </mat-select>
-        </mat-form-field>
+        <div>
+        <span>No. of servings: </span>
+        <!--TODO: MAKE mat-select WORK-->
+        <select placeholder="No. of servings"  name="recipe_servings">
+                <option value="2" >2</option>
+                <option value="4" >4</option>
+                <option value="8" >8</option>
+                <option value="10" >10</option>
+                <option value="12" >12</option>
+        </select>
+        </div>
 
         <mat-form-field>
-                <textarea matInput placeholder="Instructions"></textarea>
+                <textarea rows="10" matInput placeholder="Instructions" name="recipe_instr"></textarea>
         </mat-form-field>
-
+        
         <span>Ingredients:</span>
-        <div *ngFor="let count of counter()">
+        <div *ngFor="let count of counter(); let i = index" class="ingredients">
                 <mat-form-field>
-                        <input matInput placeholder="Ingredient name" (keyup)="onKey($event)" [matAutocomplete]="auto">
+                        <input matInput placeholder="Ingredient name" (keyup)="onIngredientInputEvent($event)" [matAutocomplete]="auto" name="ingredient_name{{i}}">
                 </mat-form-field>
                 <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let ingredientAutoCompleteValue of ingredientAutoCompleteValues" [value]="ingredientAutoCompleteValue.Namn">{{ingredientAutoCompleteValue.Namn}}</mat-option>
                       </mat-autocomplete>
                 <mat-form-field>
-                        <input matInput placeholder="Ingredient units">
+                        <input matInput placeholder="Ingredient units" name="ingredient_units{{i}}">
                 </mat-form-field>
                 <mat-form-field>
-                <mat-select placeholder="Ingredient measuring unit">
-                    <mat-option value="st">St</mat-option>
-                    <mat-option value="kg">Kg</mat-option>
-                    <mat-option value="ltr">Ltr</mat-option>
-                </mat-select>
+                        <input matInput placeholder="Ingredient measuring unit" name="ingredient_msr_unit{{i}}">
                 </mat-form-field>
                 <mat-form-field>
-                        <input matInput placeholder="Ingredient eq in grams">
+                        <input matInput placeholder="Ingredient eq in grams" name="ingredient_eq_grams{{i}}">
                 </mat-form-field>
         </div>
-        <button (click) = "onAddNewIngredient()">Add new ingredient</button>
-      
+        <input type="text" style="display:none" ngValue="counter().length" name="ingredient_counter">
+        <div>
+            <button (click) = "onAddNewIngredient()">Add new ingredient</button>
+        </div>
+       <!--TODO: Implement image upload-->
         <mat-form-field>
-                <input matInput placeholder="IMG url">
+                <input matInput placeholder="IMG url" name="img_url">
         </mat-form-field>
 
-        <button>Add Recipe</button>
+    <div><input type="submit" value="Add recipe"></div>
+    </form>
     </div>  <!--recipeForm-->
 </div>
       

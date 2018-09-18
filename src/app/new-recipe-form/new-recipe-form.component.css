@@ -5,7 +5,16 @@
     margin: 1%;
   }
 
-  #recipe_form{
+ form{
     display: flex;
     flex-direction: column;
+  }
+  form *{
+    margin-bottom: 1%; 
+  }
+  .ingredients * {
+    margin: 5px; 
+  }
+  .ingredients {
+    align-items: center
   }
