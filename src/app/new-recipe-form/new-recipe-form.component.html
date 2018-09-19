@@ -3,7 +3,7 @@
             <!--TODO: Implement form validation-->
         <form action="http://localhost:3000/addRecipe" method="post" >
         <mat-form-field hintLabel="Eg. &quot;Spaghetti bolognese&quot;">
-          <input matInput placeholder="Recipe name" name="recipe_name">
+          <input matInput placeholder="Recipe name" name="recipe_name" required>
         </mat-form-field>
       
         <mat-form-field hintLabel="A short description of the dish.">
@@ -23,28 +23,27 @@
         </div>
 
         <mat-form-field>
-                <textarea rows="10" matInput placeholder="Instructions" name="recipe_instr"></textarea>
+                <textarea rows="10" matInput placeholder="Instructions" name="recipe_instr" required></textarea>
         </mat-form-field>
         
         <span>Ingredients:</span>
         <div *ngFor="let count of counter(); let i = index" class="ingredients">
                 <mat-form-field>
-                        <input matInput placeholder="Ingredient name" (keyup)="onIngredientInputEvent($event)" [matAutocomplete]="auto" name="ingredient_name{{i}}">
+                        <input matInput placeholder="Ingredient name" (keyup)="onIngredientInputEvent($event)" [matAutocomplete]="auto" name="ingredient_name{{i}}" required>
                 </mat-form-field>
                 <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let ingredientAutoCompleteValue of ingredientAutoCompleteValues" [value]="ingredientAutoCompleteValue.Namn">{{ingredientAutoCompleteValue.Namn}}</mat-option>
                       </mat-autocomplete>
-                <mat-form-field>
-                        <input matInput placeholder="Ingredient units" name="ingredient_units{{i}}">
+                <mat-form-field hintLabel="Must be a number." >
+                        <input matInput placeholder="Ingredient units" name="ingredient_units{{i}}" required>
+                </mat-form-field>
+                <mat-form-field hintLabel="Eg.&quot;st&quot;, &quot;gr&quot;,&quot;ltr&quot; " >
+                        <input matInput placeholder="Ingredient measuring unit" name="ingredient_msr_unit{{i}}" required>
                 </mat-form-field>
                 <mat-form-field>
-                        <input matInput placeholder="Ingredient measuring unit" name="ingredient_msr_unit{{i}}">
-                </mat-form-field>
-                <mat-form-field>
-                        <input matInput placeholder="Ingredient eq in grams" name="ingredient_eq_grams{{i}}">
+                        <input matInput placeholder="Ingredient eq in grams" name="ingredient_eq_grams{{i}}" required>
                 </mat-form-field>
         </div>
-        <input type="text" style="display:none" ngValue="counter().length" name="ingredient_counter">
         <div>
             <button (click) = "onAddNewIngredient()">Add new ingredient</button>
         </div>

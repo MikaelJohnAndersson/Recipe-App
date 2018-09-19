@@ -24,6 +24,7 @@ export class NewRecipeFormComponent implements OnInit {
 
   onAddNewIngredient(){
     this.ingredientCount++;
+    console.log(this.ingredientCount);
   }
 
   counter(){

@@ -8,7 +8,7 @@ router.post('/', function(req, res){
     //Getting all ingredients
     //TODO: Implement a better solution for getting ingredient names
     let ingredientsArray = [];
-    for(let i = 0; i <= req.body.ingredient_counter; i++){
+    for(let i = 0; req.body["ingredient_name" + i]; i++){
         ingredientsArray.push(
             {name: req.body["ingredient_name" + i],
             units: req.body["ingredient_units" + i],
@@ -17,6 +17,7 @@ router.post('/', function(req, res){
         });
     }
 
+    //Creating recipe from request 
     let newRecipe = {
         name: req.body.recipe_name, 
         desc: req.body.recipe_desc, 
@@ -25,6 +26,9 @@ router.post('/', function(req, res){
         ingredients: ingredientsArray,
         imgUrl: req.body.img_url
     }
+
+    //Saving recipe to db
+    db.recipes.save(newRecipe);
 }); 
 
 module.exports = router;
