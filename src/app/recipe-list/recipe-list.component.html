@@ -1,18 +1,15 @@
-
+<div class="container">
       <mat-card *ngFor="let recipe of recipes" class="card">
         <mat-card-header>
-          <mat-card-title>{{recipe.name}}</mat-card-title>
-          <mat-card-subtitle>{{recipe.desc}}</mat-card-subtitle>
+          <mat-card-title><h5>{{recipe.name}}</h5></mat-card-title>
+          <mat-card-subtitle><h6>{{recipe.desc}}</h6></mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image src="{{recipe.imgUrl}}" alt="Recipe image">
         <mat-card-content>
-          <p>
-            Ingredienser:
-          </p>
-            <p *ngFor="let ingredient of recipe.ingredients">{{ingredient.name}}, {{ingredient.units}} {{ingredient.msrUnit}}</p>
-            <p>
-              Instruktioner:
-            </p>
+          <h5>Ingredienser:</h5>
+            <span *ngFor="let ingredient of recipe.ingredients">{{ingredient.name}}, {{ingredient.units}} {{ingredient.msrUnit}}<br></span>
+            <p></p>
+            <h5>Instruktioner:</h5>
             <p>{{recipe.instructions}}</p>
         </mat-card-content>
         <mat-card-actions>
@@ -20,5 +17,6 @@
           <button mat-button>SHARE</button>
         </mat-card-actions>
       </mat-card>
+</div>
 
   
