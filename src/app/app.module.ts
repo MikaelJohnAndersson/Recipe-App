@@ -10,7 +10,7 @@ import { NewRecipeFormComponent } from './new-recipe-form/new-recipe-form.compon
 import {RouterModule, Routes} from "@angular/router";
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatGridListModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatAutocompleteModule } from '@angular/material';
+import { MatGridListModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatAutocompleteModule, MatCardModule } from '@angular/material';
 
 
 
@@ -48,7 +48,8 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatCardModule
   ],
   providers: [RecipesService],
   bootstrap: [AppComponent]
