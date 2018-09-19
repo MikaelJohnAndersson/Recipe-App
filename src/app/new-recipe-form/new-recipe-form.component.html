@@ -22,12 +22,9 @@
         </select>
         </div>
 
-        <mat-form-field>
-                <textarea rows="10" matInput placeholder="Instructions" name="recipe_instr" required></textarea>
-        </mat-form-field>
-        
         <span>Ingredients:</span>
         <div *ngFor="let count of counter(); let i = index" class="ingredients">
+                <span>{{i + 1}}: </span>
                 <mat-form-field>
                         <input matInput placeholder="Ingredient name" (keyup)="onIngredientInputEvent($event)" [matAutocomplete]="auto" name="ingredient_name{{i}}" required>
                 </mat-form-field>
@@ -45,8 +42,13 @@
                 </mat-form-field>
         </div>
         <div>
-            <button (click) = "onAddNewIngredient()">Add new ingredient</button>
+            <button mat-raised-button (click) = "onAddNewIngredient()">Add new ingredient</button>
         </div>
+
+        <mat-form-field appearance="fill">
+                <textarea rows="10" matInput placeholder="Instructions" name="recipe_instr" required></textarea>
+        </mat-form-field>
+
        <!--TODO: Implement image upload-->
         <mat-form-field>
                 <input matInput placeholder="IMG url" name="img_url">

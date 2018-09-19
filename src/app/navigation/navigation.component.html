@@ -1,3 +1,25 @@
+<mat-toolbar color="primary">
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="drawer.toggle()"
+    *ngIf="(isHandset$ | async)">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <div class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
+  <span class="spacer"></span>
+  <!--Searchbar-->
+  <!--TODO: Implement material searchbar-->
+  <div id="wrapper_searchField">
+  <form action="" *ngIf="!(isHandset$ | async)">
+      <input placeholder="Sök på ett recept" id="searchField">
+  </form>
+  </div>
+  <span class="spacer"></span>
+  <button mat-button>Log in</button>
+</mat-toolbar>
+
 <mat-sidenav-container class="sidenav-container" [hasBackdrop] = "(isHandset$ | async) ? 'true' : 'false'">
   <mat-sidenav
     #drawer
@@ -18,32 +40,11 @@
       <div *ngIf="!(isHandset$ | async)" class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/recipeList">RecipeList</a>
-      <a mat-list-item routerLink="/addRecipe">AddRecipe</a>
+      <a mat-list-item routerLink="/recipeList">Recept</a>
+      <a mat-list-item routerLink="/addRecipe">Lägg in nytt recept</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="!drawer.opened">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <div *ngIf="!drawer.opened" class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
-      <span class="spacer"></span>
-      <!--Searchbar-->
-      <!--TODO: Implement material searchbar-->
-      <div id="wrapper_searchField">
-      <form action="" *ngIf="!(isHandset$ | async)">
-          <input placeholder="Sök på ett recept" id="searchField">
-      </form>
-      </div>
-      <span class="spacer"></span>
-      <button>Log in</button>
-    </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
