@@ -11,7 +11,24 @@
   position: sticky;
   top: 0;
 }
-
-#menu_toolbar{
-  display: flex; justify-content: space-between;
+.logo{
+  max-height: 100%; 
+  width: auto
 }
+.wrapper_logo{
+  height: 100%; 
+  width: auto;
+  padding: 5px;
+}
+.spacer{
+  flex: 1 1 auto;
+}
+#wrapper_searchField{
+  width: 50%;
+}
+#wrapper_searchField form{
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+}
+
