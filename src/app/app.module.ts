@@ -11,12 +11,13 @@ import {RouterModule, Routes} from "@angular/router";
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatGridListModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatAutocompleteModule, MatCardModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
-
+//TODO: Set up starting route/homepage properly
 const appRoutes: Routes = [
-  { path: 'recipeList', component: RecipeListComponent, data: { title: 'Recipe Component' }},
-  { path: '', component: RecipeListComponent, data: { title: 'Recipe Component' } }, 
+  { path: 'recipes', component: RecipeListComponent, data: { title: 'Recipe Component' }}, 
   { path: 'addRecipe', component: NewRecipeFormComponent, data: { title: 'Add recipe Component' } }, 
   ];
 
@@ -49,7 +50,9 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatInputModule,
     MatAutocompleteModule,
-    MatCardModule
+    MatCardModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [RecipesService],
   bootstrap: [AppComponent]

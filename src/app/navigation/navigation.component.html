@@ -12,8 +12,8 @@
   <!--Searchbar-->
   <!--TODO: Implement material searchbar-->
   <div id="wrapper_searchField">
-  <form action="" *ngIf="!(isHandset$ | async)">
-      <input placeholder="Sök på ett recept" id="searchField">
+  <form action="http://localhost:3000/api/recipes" *ngIf="!(isHandset$ | async)">
+      <input placeholder="Sök på ett recept" id="searchField" name="search_term">
   </form>
   </div>
   <span class="spacer"></span>
@@ -40,7 +40,7 @@
       <div *ngIf="!(isHandset$ | async)" class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/recipeList">Recept</a>
+      <a mat-list-item routerLink="/recipes">Recept</a>
       <a mat-list-item routerLink="/addRecipe">Lägg in nytt recept</a>
     </mat-nav-list>
   </mat-sidenav>

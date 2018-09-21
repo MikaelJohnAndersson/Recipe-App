@@ -13,11 +13,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 const recipes = require('./server/routes/recipes');
-app.use('/recipes', recipes);
+app.use('/api/recipes', recipes);
 const autocompleteIngredientName = require('./server/routes/autocomplete-Ingredient-Name');
-app.use('/autocomplete-ingredient-name', autocompleteIngredientName);
+app.use('/api/autocomplete-ingredient-name', autocompleteIngredientName);
 const addRecipe = require('./server/routes/addRecipe');
-app.use('/addRecipe', addRecipe);
+app.use('/api/addRecipe', addRecipe);
 
 app.get('*', (req,res) => {res.sendFile(path.join(__dirname, 'dist/index.html'))});
 

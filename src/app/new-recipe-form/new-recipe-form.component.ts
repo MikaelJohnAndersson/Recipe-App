@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AutocompleteIngredientNameService } from '../autocomplete-ingredient-name.service';
+import {FormBuilder, FormGroup, FormArray} from '@angular/forms';
 
 @Component({
   selector: 'app-new-recipe-form',
@@ -9,11 +10,26 @@ import { AutocompleteIngredientNameService } from '../autocomplete-ingredient-na
 export class NewRecipeFormComponent implements OnInit {
 
   public ingredientAutoCompleteValues;
-  public ingredientCount;
-  constructor(private autocompleteIngredientNameService: AutocompleteIngredientNameService) { }
+  private add_recipe_form: FormGroup; 
+
+  constructor(private autocompleteIngredientNameService: AutocompleteIngredientNameService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.ingredientCount = 1;
+
+    //Resetting FormGroup on init
+    this.add_recipe_form = this.fb.group({
+      recipe_name: [''],
+      recipe_desc: [''],
+      recipe_servings: [''],
+      ingredients: this.fb.array([
+        this.fb.group({
+          ingredient_name: [''],
+          ingredient_units: [''],
+          ingredient_msr_unit: [''], 
+          ingredient_eq_grams: ['']
+        })
+      ])
+    });
   }
   
   onIngredientInputEvent(event: any) { 
@@ -22,12 +38,18 @@ export class NewRecipeFormComponent implements OnInit {
     );
   }
 
-  onAddNewIngredient(){
-    this.ingredientCount++;
+  get aliases() {
+    return this.add_recipe_form.get('ingredients') as FormArray;
   }
 
-  counter(){
-    return new Array(this.ingredientCount);
+  //Pushing new group of ingredient form controls on add ingredient
+  addIngredient() {
+    this.aliases.push(this.fb.group({
+      ingredient_name: [''],
+      ingredient_units: [''],
+      ingredient_msr_unit: [''], 
+      ingredient_eq_grams: ['']
+    }));
   }
 
 }

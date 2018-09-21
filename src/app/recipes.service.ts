@@ -8,7 +8,7 @@ export class RecipesService {
 
   constructor(private http:HttpClient) { }
 
-  getAllRecipes(){
-    return this.http.get('http://localhost:3000/recipes');
+  getRecipes(path : string){
+    return this.http.get('http://localhost:3000/api' + path);
   }
 }
