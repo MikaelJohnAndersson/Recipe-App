@@ -12,12 +12,14 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+const BASE_URL = "/api"
+
 const recipes = require('./server/routes/recipes');
-app.use('/api/recipes', recipes);
+app.use( BASE_URL + '/recipes', recipes);
 const autocompleteIngredientName = require('./server/routes/autocomplete-Ingredient-Name');
-app.use('/api/autocomplete-ingredient-name', autocompleteIngredientName);
+app.use(BASE_URL + '/autocomplete-ingredient-name', autocompleteIngredientName);
 const addRecipe = require('./server/routes/addRecipe');
-app.use('/api/addRecipe', addRecipe);
+app.use(BASE_URL + '/addRecipe', addRecipe);
 
 app.get('*', (req,res) => {res.sendFile(path.join(__dirname, 'dist/index.html'))});
 
