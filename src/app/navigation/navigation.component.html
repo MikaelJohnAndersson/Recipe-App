@@ -9,14 +9,6 @@
   </button>
   <div class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
   <span class="spacer"></span>
-  <!--Searchbar-->
-  <!--TODO: Implement material searchbar-->
-  <div id="wrapper_searchField">
-  <form action="http://localhost:3000/api/recipes" *ngIf="!(isHandset$ | async)">
-      <input placeholder="Sök på ett recept" id="searchField" name="search_term">
-  </form>
-  </div>
-  <span class="spacer"></span>
   <button mat-button>Log in</button>
 </mat-toolbar>
 

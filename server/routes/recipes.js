@@ -5,10 +5,10 @@ var db = mongojs("mongodb://localhost:27017/recipedb", ["recipes", "nutrients"])
 
 router.get('/', function(req, res){
 
+    console.log(req.query.search_term);
     //Returning search result if request is a search
     if(req.query.search_term){
-        let search = req.query.search_term;
-        db.recipes.find({name: {"$regex" : "" + search.name}},function(err, recipes){
+        db.recipes.find({name: {"$regex" : req.query.search_term}},function(err, recipes){
             if (err) throw err;
             res.json(recipes);
         });

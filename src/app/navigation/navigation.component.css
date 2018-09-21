@@ -24,12 +24,4 @@
 .spacer{
   flex: 1 1 auto;
 }
-#wrapper_searchField{
-  width: 50%;
-}
-#wrapper_searchField form{
-    display: flex;
-    flex-direction: column;
-    width: 100%; 
-}
 
