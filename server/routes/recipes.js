@@ -10,7 +10,6 @@ router.get('/', function(req, res){
         let search = req.query.search_term;
         db.recipes.find({name: {"$regex" : "" + search.name}},function(err, recipes){
             if (err) throw err;
-            console.log(recipes);
             res.json(recipes);
         });
     }
@@ -21,11 +20,6 @@ router.get('/', function(req, res){
         res.json(recipes);
         });
     }
-}); 
-
-//TODO: Set up search based on text index
-router.get('/', function(req, res){
-    
 }); 
 
 module.exports = router;

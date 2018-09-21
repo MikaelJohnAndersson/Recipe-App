@@ -1,7 +1,7 @@
 <div class="container">
     <div id="recipe_form">
         <!--TODO: Implement form validation-->
-        <form [formGroup]="add_recipe_form" >
+        <form [formGroup]="add_recipe_form" (ngSubmit)="onSubmit()">
         <mat-form-field hintLabel="Eg. &quot;Spaghetti bolognese&quot;">
           <input matInput placeholder="Recipe name" formControlName="recipe_name" required>
         </mat-form-field>
@@ -50,16 +50,16 @@
                 </div>
         </div>
 
-        <mat-form-field appearance="fill">
-                <textarea rows="10" matInput placeholder="Instructions" name="recipe_instr" required></textarea>
+        <mat-form-field>
+                <textarea rows="10" matInput placeholder="Instructions" [formControlName]="'recipe_instr'" required></textarea>
         </mat-form-field>
 
        <!--TODO: Implement image upload-->
         <mat-form-field>
-                <input matInput placeholder="IMG url" name="img_url">
+                <input matInput placeholder="IMG url" [formControlName]="'img_url'">
         </mat-form-field>
 
-    <div><input type="submit" value="Add recipe"></div>
+    <div><button type="submit">Add recipe</button></div>
     </form>
     </div>  <!--recipeForm-->
 </div>
