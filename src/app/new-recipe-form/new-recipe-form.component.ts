@@ -59,16 +59,27 @@ export class NewRecipeFormComponent implements OnInit {
 
   onSubmit(){
 
+    let ingredients_ = this.add_recipe_form.get('ingredients').value;
+    ingredients_.forEach(element => {
+      this.ingredientService.getNutrient(element.ingredient_name).subscribe(nutrientData => {
+        element.nutrient_data = nutrientData;
+      })
+    });
+
+    console.log(ingredients_);
+
+    /*
     let newRecipe = {
       name: this.add_recipe_form.get('recipe_name').value, 
       desc: this.add_recipe_form.get('recipe_desc').value, 
       servings: this.add_recipe_form.get('recipe_servings').value, 
-      ingredients: this.add_recipe_form.get('ingredients').value,
+      ingredients: ingredients_,
       instructions: this.add_recipe_form.get('recipe_instr').value, 
       imgUrl: this.add_recipe_form.get('img_url').value ? this.add_recipe_form.get('img_url').value : "N/A"
     }
 
     this.recipesService.addRecipe(JSON.stringify(newRecipe)).subscribe(data => this.snackBar.open("Recipe added!"));
+    */
     this.add_recipe_form.reset();
   }
 
