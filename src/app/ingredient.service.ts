@@ -11,4 +11,8 @@ export class IngredientService {
   autoCompleteIngredientName(startOfName : string){
     return this.http.get('http://localhost:3000/api/ingredients/autocomplete/' + startOfName);
   }
+
+  getNutrient(name : string){
+    return this.http.get('http://localhost:3000/api/ingredients/' + name);
+  }
 }
