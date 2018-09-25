@@ -3,6 +3,7 @@ import { RecipesService } from '../recipes.service';
 import { Router } from '@angular/router'; 
 import {FormBuilder, FormGroup} from '@angular/forms';
 
+
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
@@ -14,19 +15,18 @@ export class RecipeListComponent implements OnInit {
   public href : string; 
   private search_form: FormGroup = this.fb.group({search_term : ['']});
 
-  constructor(private recipesService: RecipesService, private router : Router, private fb: FormBuilder) { }
+  constructor(private recipesService: RecipesService, private router : Router, private fb: FormBuilder, private ns: NutrientService ) { }
 
   ngOnInit() {
     //Passing in the component path to the service
     this.recipesService.getRecipes(this.router.url).subscribe(
-      data => {this.recipes = data}, 
-      err => console.log(err), 
-      () => console.log("Done loading recipes"));
+      data => {this.recipes = data}
+      );
     };
 
-    onSubmit(){
+  onSubmit(){
       this.recipesService.getRecipes(this.router.url + "?search_term=" + this.search_form.get('search_term').value).subscribe(
-        data => {console.log(data);this.recipes = data});
+        data => {this.recipes = data});
       };
   
 }
