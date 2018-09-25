@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AutocompleteIngredientNameService } from '../autocomplete-ingredient-name.service';
+import { IngredientService } from '../ingredient.service';
 import {FormBuilder, FormGroup, FormArray} from '@angular/forms';
 import { RecipesService } from '../recipes.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -14,7 +14,7 @@ export class NewRecipeFormComponent implements OnInit {
   public ingredientAutoCompleteValues;
   private add_recipe_form: FormGroup; 
 
-  constructor(private autocompleteIngredientNameService: AutocompleteIngredientNameService, private fb: FormBuilder, private recipesService: RecipesService, public snackBar: MatSnackBar) { }
+  constructor(private ingredientService: IngredientService, private fb: FormBuilder, private recipesService: RecipesService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
 
@@ -38,7 +38,7 @@ export class NewRecipeFormComponent implements OnInit {
   }
   
   onIngredientInputEvent(event: any) { 
-    this.autocompleteIngredientNameService.autoCompleteIngredientName(event.target.value).subscribe(
+    this.ingredientService.autoCompleteIngredientName(event.target.value).subscribe(
       data => {this.ingredientAutoCompleteValues = data;}
     );
   }

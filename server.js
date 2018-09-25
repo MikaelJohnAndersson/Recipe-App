@@ -16,8 +16,8 @@ const BASE_URL = "/api"
 
 const recipes = require('./server/routes/recipes');
 app.use( BASE_URL + '/recipes', recipes);
-const autocompleteIngredientName = require('./server/routes/autocomplete-Ingredient-Name');
-app.use(BASE_URL + '/autocomplete-ingredient-name', autocompleteIngredientName);
+const ingredients = require('./server/routes/ingredients');
+app.use(BASE_URL + '/ingredients', ingredients);
 const addRecipe = require('./server/routes/addRecipe');
 app.use(BASE_URL + '/addRecipe', addRecipe);
 

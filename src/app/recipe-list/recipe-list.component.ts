@@ -15,7 +15,7 @@ export class RecipeListComponent implements OnInit {
   public href : string; 
   private search_form: FormGroup = this.fb.group({search_term : ['']});
 
-  constructor(private recipesService: RecipesService, private router : Router, private fb: FormBuilder, private ns: NutrientService ) { }
+  constructor(private recipesService: RecipesService, private router : Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     //Passing in the component path to the service
