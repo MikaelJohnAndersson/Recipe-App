@@ -25,10 +25,10 @@ export class NewRecipeFormComponent implements OnInit {
       recipe_servings: [''],
       ingredients: this.fb.array([
         this.fb.group({
-          ingredient_name: [''],
-          ingredient_units: [''],
-          ingredient_msr_unit: [''], 
-          ingredient_eq_grams: ['']
+          name: [''],
+          units: [''],
+          msr_unit: [''], 
+          eq_grams: ['']
         })
       ]),
       recipe_instr: [''],
@@ -50,37 +50,29 @@ export class NewRecipeFormComponent implements OnInit {
   //Pushing new group of ingredient form controls on add ingredient
   addIngredient() {
     this.ingredients.push(this.fb.group({
-      ingredient_name: [''],
-      ingredient_units: [''],
-      ingredient_msr_unit: [''], 
-      ingredient_eq_grams: ['']
+      name: [''],
+      units: [''],
+      msr_unit: [''], 
+      eq_grams: ['']
     }));
   }
 
   onSubmit(){
-
-    let ingredients_ = this.add_recipe_form.get('ingredients').value;
-    ingredients_.forEach(element => {
-      this.ingredientService.getNutrient(element.ingredient_name).subscribe(nutrientData => {
-        element.nutrient_data = nutrientData;
-      })
-    });
-
-    console.log(ingredients_);
-
-    /*
+    
     let newRecipe = {
       name: this.add_recipe_form.get('recipe_name').value, 
       desc: this.add_recipe_form.get('recipe_desc').value, 
       servings: this.add_recipe_form.get('recipe_servings').value, 
-      ingredients: ingredients_,
+      ingredients: this.add_recipe_form.get('ingredients').value,
       instructions: this.add_recipe_form.get('recipe_instr').value, 
       imgUrl: this.add_recipe_form.get('img_url').value ? this.add_recipe_form.get('img_url').value : "N/A"
-    }
-
-    this.recipesService.addRecipe(JSON.stringify(newRecipe)).subscribe(data => this.snackBar.open("Recipe added!"));
-    */
-    this.add_recipe_form.reset();
+  }
+    
+    this.ingredientService.getNutrients(newRecipe.ingredients).subscribe(ingredientsWithNutrients =>{
+      newRecipe.ingredients = ingredientsWithNutrients;
+      this.recipesService.addRecipe(newRecipe).subscribe(data => this.snackBar.open("Recipe added!"));
+      this.add_recipe_form.reset();
+    });
   }
 
 }

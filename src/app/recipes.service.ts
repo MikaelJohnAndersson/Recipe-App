@@ -14,8 +14,7 @@ export class RecipesService {
   }
   addRecipe(data: any): Observable <any>{
     return this.http.post<any>('http://localhost:3000/api/addRecipe', data, {
-      headers: new HttpHeaders({'Content-Type':  'application/json'
-      })
+      headers: new HttpHeaders({'Content-Type':  'application/json'})
     });
   }
 }

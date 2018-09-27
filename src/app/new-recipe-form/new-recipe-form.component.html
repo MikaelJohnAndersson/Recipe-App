@@ -29,19 +29,19 @@
                                 <div [formGroup]="add_recipe_form.controls.ingredients.controls[i]">
                                         <span>{{i + 1}}: </span>
                                         <mat-form-field>
-                                                <input matInput placeholder="Ingredient name" (keyup)="onIngredientInputEvent($event)" [matAutocomplete]="auto" [formControlName]="'ingredient_name'" required>
+                                                <input matInput placeholder="Ingredient name" (keyup)="onIngredientInputEvent($event)" [matAutocomplete]="auto" [formControlName]="'name'" required>
                                         </mat-form-field>
                                         <mat-autocomplete #auto="matAutocomplete">
                                                 <mat-option *ngFor="let ingredientAutoCompleteValue of ingredientAutoCompleteValues" [value]="ingredientAutoCompleteValue.Namn">{{ingredientAutoCompleteValue.Namn}}</mat-option>
                                         </mat-autocomplete>
                                         <mat-form-field hintLabel="Must be a number." >
-                                                <input matInput placeholder="Ingredient units" [formControlName]="'ingredient_units'" required>
+                                                <input matInput placeholder="Ingredient units" [formControlName]="'units'" required>
                                         </mat-form-field>
                                         <mat-form-field hintLabel="Eg.&quot;st&quot;, &quot;gr&quot;,&quot;ltr&quot; " >
-                                                <input matInput placeholder="Ingredient measuring unit" [formControlName]="'ingredient_msr_unit'" required>
+                                                <input matInput placeholder="Ingredient measuring unit" [formControlName]="'msr_unit'" required>
                                         </mat-form-field>
                                         <mat-form-field>
-                                                <input matInput placeholder="Ingredient eq in grams" [formControlName]="'ingredient_eq_grams'" required>
+                                                <input matInput placeholder="Ingredient eq in grams" [formControlName]="'eq_grams'" required>
                                         </mat-form-field>
                                 </div>
                         </div>
