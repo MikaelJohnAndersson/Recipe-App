@@ -28,6 +28,14 @@ export class RecipeListComponent implements OnInit {
       this.recipesService.getRecipes(this.router.url + "?search_term=" + this.search_form.get('search_term').value).subscribe(
         data => {this.recipes = data});
       };
+
+  totalCarbs(recipe: any){
+    let total = 0;
+        for (let i = 0; i < recipe.ingredients.length; i++){
+          total += parseFloat(recipe.ingredients[i]["nutrient_data"].carbs);
+        }
+        return total; 
+    }
   
 }
 

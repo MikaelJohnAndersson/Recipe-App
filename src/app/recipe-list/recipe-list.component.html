@@ -13,7 +13,7 @@
   <!--Searchbar-->
   <!--TODO: Implement material searchbar-->
 
-      <mat-card *ngFor="let recipe of recipes" class="card">
+      <mat-card *ngFor="let recipe of recipes; let i = index" class="card">
         <mat-card-header>
           <mat-card-title><h5>{{recipe.name}}</h5></mat-card-title>
           <mat-card-subtitle><h6>{{recipe.desc}}</h6></mat-card-subtitle>
@@ -21,12 +21,11 @@
         <img mat-card-image src="{{recipe.imgUrl}}" alt="Recipe image">
         <mat-card-content>
           <h5>Ingredienser:</h5>
-            <span *ngFor="let ingredient of recipe.ingredients">{{ingredient.name}}, {{ingredient.units}} {{ingredient.msrUnit}}<br></span>
-            <p></p>
+            <span *ngFor="let ingredient of recipe.ingredients">{{ingredient.name}}, {{ingredient.units}} {{ingredient.msr_unit}}<br></span>
             <h5>Instruktioner:</h5>
             <p>{{recipe.instructions}}</p>
             <h5>Näringsinnehåll:</h5>
-            
+            <p>Total carbs: {{totalCarbs(recipe)}}</p>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button>LIKE</button>
