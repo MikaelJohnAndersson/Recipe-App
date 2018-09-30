@@ -9,11 +9,11 @@
   </button>
   <div class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
   <span class="spacer"></span>
-  <button mat-button>Log in</button>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container" [hasBackdrop] = "(isHandset$ | async) ? 'true' : 'false'">
-  <mat-sidenav
+  <!--
+    <mat-sidenav
     #drawer
     class="sidenav"
     fixedInViewport="true"
@@ -36,6 +36,7 @@
       <a mat-list-item routerLink="/addRecipe">Lägg in nytt recept</a>
     </mat-nav-list>
   </mat-sidenav>
+  -->
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

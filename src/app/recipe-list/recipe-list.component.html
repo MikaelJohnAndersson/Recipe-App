@@ -1,16 +1,13 @@
 
-  <div id="wrapper_searchField">
-      <div class="spacer"></div>
+  <div class="container">
       <form [formGroup]="search_form" (ngSubmit)="onSubmit()">
         <mat-form-field>
           <input matInput placeholder="Sök på ett recept" id="searchField" formControlName="search_term">
         </mat-form-field>
-      </form>
-      <div class="spacer"></div>
+      </form> 
   </div>
   
 <div class="container">
-
       <mat-card *ngFor="let recipe of recipes; let i = index" class="card">
         <mat-card-header>
           <mat-card-title><h5>{{recipe.name}}</h5></mat-card-title>

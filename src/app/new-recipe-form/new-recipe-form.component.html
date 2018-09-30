@@ -2,24 +2,26 @@
     <div id="recipe_form">
         <!--TODO: Implement form validation-->
         <form [formGroup]="add_recipe_form" (ngSubmit)="onSubmit()">
-        <mat-form-field hintLabel="Eg. &quot;Spaghetti bolognese&quot;">
+        <mat-form-field >
           <input matInput placeholder="Recipe name" formControlName="recipe_name" required>
         </mat-form-field>
       
-        <mat-form-field hintLabel="A short description of the dish.">
+        <mat-form-field>
           <input matInput placeholder="Short description" formControlName="recipe_desc">
         </mat-form-field>
 
         <div>
-        <span>No. of servings: </span>
         <!--TODO: MAKE mat-select WORK-->
-        <select placeholder="No. of servings"  formControlName="recipe_servings">
-                <option value="2" >2</option>
-                <option value="4" >4</option>
-                <option value="8" >8</option>
-                <option value="10" >10</option>
-                <option value="12" >12</option>
-        </select>
+        <mat-form-field>
+                <mat-select placeholder="No. of servings" formControlName="recipe_servings" required>
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="4">4</mat-option>
+                        <mat-option value="6">6</mat-option>
+                        <mat-option value="8">8</mat-option>
+                        <mat-option value="10">10</mat-option>
+                        <mat-option value="12">12</mat-option>
+                </mat-select>
+        </mat-form-field>
         </div>
 
         <div formArrayName="ingredients">

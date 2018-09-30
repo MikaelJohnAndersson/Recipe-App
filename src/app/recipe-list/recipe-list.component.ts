@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipesService } from '../recipes.service';
 import { Router } from '@angular/router'; 
-import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 
 @Component({
@@ -36,7 +36,9 @@ export class RecipeListComponent implements OnInit {
 
   onSubmit(){
       this.recipesService.getRecipes(this.router.url + "?search_term=" + this.search_form.get('search_term').value).subscribe(
-        data => {this.recipes = data});
+        data => {
+          this.recipes = data;
+        });
       };
 
   totalAmountPerPortion(field: string, recipe: any){

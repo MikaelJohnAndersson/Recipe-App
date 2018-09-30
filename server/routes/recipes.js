@@ -7,7 +7,7 @@ router.get('/', function(req, res){
     let search_term = req.query.search_term;
     //Returning search result if request is a search
     if(search_term){
-        db.recipes.find({name: {"$regex" : search_term}},function(err, recipes){
+        db.recipes.find({name: {"$regex" : search_term, '$options' : 'i'}},function(err, recipes){
             if (err) throw err;
             res.json(recipes);
         });
