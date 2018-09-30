@@ -17,8 +17,6 @@ export class NewRecipeFormComponent implements OnInit {
   constructor(private ingredientService: IngredientService, private fb: FormBuilder, private recipesService: RecipesService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-
-    //Resetting FormGroup on init
     this.add_recipe_form = this.fb.group({
       recipe_name: [''],
       recipe_desc: [''],
@@ -34,7 +32,6 @@ export class NewRecipeFormComponent implements OnInit {
       recipe_instr: [''],
       img_url: ['']
     });
-
   }
   
   onIngredientInputEvent(event: any) { 
@@ -60,19 +57,27 @@ export class NewRecipeFormComponent implements OnInit {
   onSubmit(){
     
     let newRecipe = {
-      name: this.add_recipe_form.get('recipe_name').value, 
-      desc: this.add_recipe_form.get('recipe_desc').value, 
-      servings: this.add_recipe_form.get('recipe_servings').value, 
-      ingredients: this.add_recipe_form.get('ingredients').value,
-      instructions: this.add_recipe_form.get('recipe_instr').value, 
-      imgUrl: this.add_recipe_form.get('img_url').value ? this.add_recipe_form.get('img_url').value : "N/A"
+      name: this.getValue("recipe_name"), 
+      desc: this.getValue("recipe_desc"), 
+      servings: this.getValue("recipe_servings"), 
+      ingredients: this.getValue("ingredients"),
+      instructions: this.getValue("recipe_instr"), 
+      imgUrl: this.getValue("img_url") ? this.getValue("img_url") : "N/A"
   }
     
     this.ingredientService.getNutrients(newRecipe.ingredients).subscribe(ingredientsWithNutrients =>{
       newRecipe.ingredients = ingredientsWithNutrients;
       this.recipesService.addRecipe(newRecipe).subscribe(data => this.snackBar.open("Recipe added!"));
-      this.add_recipe_form.reset();
+      this.resetForm();
     });
+  }
+
+  getValue(field: string){
+    return this.add_recipe_form.get(field).value;
+  }
+
+  resetForm(){
+    this.add_recipe_form.reset();
   }
 
 }

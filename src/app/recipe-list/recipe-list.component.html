@@ -10,8 +10,6 @@
   </div>
   
 <div class="container">
-  <!--Searchbar-->
-  <!--TODO: Implement material searchbar-->
 
       <mat-card *ngFor="let recipe of recipes; let i = index" class="card">
         <mat-card-header>
@@ -20,17 +18,32 @@
         </mat-card-header>
         <img mat-card-image src="{{recipe.imgUrl}}" alt="Recipe image">
         <mat-card-content>
-          <h5>Ingredienser:</h5>
-            <span *ngFor="let ingredient of recipe.ingredients">{{ingredient.name}}, {{ingredient.units}} {{ingredient.msr_unit}}<br></span>
+           <mat-form-field>
+             <mat-select [(value)]="selectedNumberOfPortions[i]" placeholder="No. of servings">
+              <mat-option value="2">2</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="6">6</mat-option>
+              <mat-option value="8">8</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="12">12</mat-option>
+             </mat-select>
+           </mat-form-field>
+            <h5>Ingredienser:</h5>
+            <!--Outputting name of ingredient, ingredient units divided by recipe servings to get amount per serving. Then multiplying with currently selected no. of portions.-->
+            <span *ngFor="let ingredient of recipe.ingredients">{{ingredient.name}}, {{(ingredient.units / recipe.servings) * selectedNumberOfPortions[i]}} {{ingredient.msr_unit}}<br></span>
+            <br>
             <h5>Instruktioner:</h5>
             <p>{{recipe.instructions}}</p>
-            <h5>Näringsinnehåll:</h5>
-            <p>Total carbs: {{totalCarbs(recipe)}}</p>
+            <h5>Näringsvärde per portion:</h5>
+            <!--Getting the total nutrient value per portion.-->
+            <span>Kcal: {{totalAmountPerPortion('en_kcal',recipe)}}gr<br></span>
+            <span>Protein: {{totalAmountPerPortion('protein',recipe)}}gr<br></span>
+            <span>Kolhydrater: {{totalAmountPerPortion('carbs',recipe)}}gr<br></span>
+            <span>Mättat fett: {{totalAmountPerPortion('sat_fat',recipe)}}gr<br></span>
+            <span>Omättat fett: {{totalAmountPerPortion('unsat_fat',recipe)}}gr<br></span>
+            <span>Fleromättat fett: {{totalAmountPerPortion('poly_unsat_fat',recipe)}}gr<br></span>
+            <span>Salt: {{totalAmountPerPortion('salt',recipe)}}gr<br></span>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
       </mat-card>
 </div>
 
