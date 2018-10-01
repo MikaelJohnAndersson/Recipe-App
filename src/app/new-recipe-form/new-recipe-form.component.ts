@@ -3,6 +3,7 @@ import { IngredientService } from '../ingredient.service';
 import {FormBuilder, FormGroup, FormArray} from '@angular/forms';
 import { RecipesService } from '../recipes.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatChipInputEvent} from '@angular/material';
 
 @Component({
   selector: 'app-new-recipe-form',
@@ -13,6 +14,11 @@ export class NewRecipeFormComponent implements OnInit {
 
   public ingredientAutoCompleteValues;
   private add_recipe_form: FormGroup; 
+  private categories; 
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
 
   constructor(private ingredientService: IngredientService, private fb: FormBuilder, private recipesService: RecipesService, public snackBar: MatSnackBar) { }
 
@@ -20,6 +26,7 @@ export class NewRecipeFormComponent implements OnInit {
     this.add_recipe_form = this.fb.group({
       recipe_name: [''],
       recipe_desc: [''],
+      add_category: [''],
       recipe_servings: [''],
       ingredients: this.fb.array([
         this.fb.group({
@@ -32,6 +39,8 @@ export class NewRecipeFormComponent implements OnInit {
       recipe_instr: [''],
       img_url: ['']
     });
+
+    this.categories = [];
   }
   
   onIngredientInputEvent(event: any) { 
@@ -54,11 +63,34 @@ export class NewRecipeFormComponent implements OnInit {
     }));
   }
 
+  addCategory(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our category
+    if ((value || '').trim()) {
+      this.categories.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+  removeCategory(category: string): void {
+    const index = this.categories.indexOf(category);
+
+    if (index >= 0) {
+      this.categories.splice(index, 1);
+    }
+  }
+
   onSubmit(){
     
     let newRecipe = {
       name: this.getValue("recipe_name"), 
       desc: this.getValue("recipe_desc"), 
+      categories: this.categories,
       servings: this.getValue("recipe_servings"), 
       ingredients: this.getValue("ingredients"),
       instructions: this.getValue("recipe_instr"), 
@@ -78,6 +110,7 @@ export class NewRecipeFormComponent implements OnInit {
 
   resetForm(){
     this.add_recipe_form.reset();
+    this.categories = [];
   }
 
 }

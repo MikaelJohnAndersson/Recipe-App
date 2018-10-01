@@ -10,8 +10,21 @@
           <input matInput placeholder="Short description" formControlName="recipe_desc">
         </mat-form-field>
 
+        <mat-form-field hintLabel="Add the category and press enter.">
+                        <mat-chip-list #chipList>
+                          <mat-chip *ngFor="let category of categories" [selectable]="selectable"
+                                   [removable]="removable" (removed)="removeCategory(category)">
+                            {{category}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                          </mat-chip>
+                          <input placeholder="Add categories..."
+                                 [matChipInputFor]="chipList"
+                                 [matChipInputAddOnBlur]="addOnBlur"
+                                 (matChipInputTokenEnd)="addCategory($event)">
+                        </mat-chip-list>
+        </mat-form-field>
+
         <div>
-        <!--TODO: MAKE mat-select WORK-->
         <mat-form-field>
                 <mat-select placeholder="No. of servings" formControlName="recipe_servings" required>
                         <mat-option value="2">2</mat-option>
