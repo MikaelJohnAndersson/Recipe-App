@@ -1,3 +1,6 @@
+button{
+  color: #000000; 
+}
 
 form{
   padding: 4px;
@@ -6,12 +9,19 @@ form{
 .input-field label{
   position:absolute; 
   left:1rem; 
-  top : 0;}
+  top : 0;
+}
 
 .dropdown-button a{
   position:absolute; 
   right:1rem; 
-  top : 0;}
+  top : 0;
+  color: grey
+}
+.dropdown-button a:hover{
+  cursor: pointer;
+  opacity: 0.5;
+}
 
 .nav-wrapper{
   background: #FFFFFF; 

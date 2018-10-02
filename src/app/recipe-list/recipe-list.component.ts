@@ -12,6 +12,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class RecipeListComponent implements OnInit {
 
   public recipes;
+  public categories;
   public href : string; 
   private search_form: FormGroup = this.fb.group({search_term : ['']});
 
@@ -44,6 +45,13 @@ export class RecipeListComponent implements OnInit {
     //Returning servings for given recipe
     getRecipeServings(recipe: any){
       return this.recipes.filter(obj => {return obj == recipe})[0].servings;
+    }
+    getCategories(){
+      this.recipesService.getCategories().subscribe(
+        data =>{
+          this.categories = data;
+        }
+      );
     }
 
     openDialog(recipe: any): void {

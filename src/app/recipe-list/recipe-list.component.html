@@ -8,9 +8,13 @@
                                 <div class="input-field">
                                   <input matInput formControlName="search_term" id="search" type="search" placeholder="Sök på ett recept...">
                                   <div class="search-icon"><label for="search"><i class="material-icons">search</i></label></div>
-                                  <div class="dropdown-button"><a href="#!" data-activates="dropdown1"  data-beloworigin="true"><i class="material-icons ">reorder</i></a></div>
+                                  <!-- Dropdown Trigger -->
+                                  <div class="dropdown-button"><a [matMenuTriggerFor]="appMenu" (click)="getCategories()"><i class="material-icons">playlist_add</i></a></div>
+                                  <!-- Dropdown Structure -->
+                                    <mat-menu #appMenu="matMenu" [overlapTrigger]="false" xPosition="before">
+                                        <button mat-menu-item *ngFor="let category of categories">{{category}}</button>
+                                    </mat-menu>
                                 </div>
-                          <!-- Dropdown Trigger -->
                         </form>
                 </div>
             </div>

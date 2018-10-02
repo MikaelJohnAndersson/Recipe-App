@@ -20,5 +20,14 @@ router.get('/', function(req, res){
         });
     }
 }); 
+router.get("/categories", function(req, res){
+
+    db.recipes.find(function(err, recipes){
+        if (err) throw err; 
+        let categories = recipes.map(recipe =>  recipe.categories);
+        let result = [].concat.apply([], categories);
+        res.json(result);
+    });
+});
 
 module.exports = router;

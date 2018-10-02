@@ -17,4 +17,7 @@ export class RecipesService {
       headers: new HttpHeaders({'Content-Type':  'application/json'})
     });
   }
+  getCategories(){
+    return this.http.get('http://localhost:3000/api/recipes/categories');
+  }
 }

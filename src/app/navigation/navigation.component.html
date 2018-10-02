@@ -1,14 +1,7 @@
 <mat-toolbar>
-  <button
-    type="button"
-    aria-label="Toggle sidenav"
-    mat-icon-button
-    (click)="drawer.toggle()"
-    *ngIf="(isHandset$ | async)">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button>
   <div class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
   <span class="spacer"></span>
+  <div><img src="./assets/facebook.png" alt=""></div>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container" [hasBackdrop] = "(isHandset$ | async) ? 'true' : 'false'">
