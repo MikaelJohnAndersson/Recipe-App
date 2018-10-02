@@ -1,4 +1,6 @@
-
+.container{
+  padding-left: 2%; padding-right: 2%;
+}
  form{
     display: flex;
     flex-direction: column;

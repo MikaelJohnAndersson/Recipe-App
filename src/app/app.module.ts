@@ -9,7 +9,6 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeListDialogComponent } from './recipe-list/recipe-list.component';
 import { NewRecipeFormComponent } from './new-recipe-form/new-recipe-form.component';
 import {RouterModule, Routes} from "@angular/router";
-import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatGridListModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatAutocompleteModule, MatCardModule, MatChipsModule,MatMenuModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -28,7 +27,6 @@ const appRoutes: Routes = [
     AppComponent,
     RecipeListComponent,
     NewRecipeFormComponent,
-    NavigationComponent,
     RecipeListDialogComponent
   ],
   entryComponents: [

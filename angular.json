@@ -23,9 +23,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/themes.scss",
-              "./node_modules/materialize-css/dist/css/materialize.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/themes.scss"
             ],
             "scripts": [ "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/materialize-css/dist/js/materialize.js"]

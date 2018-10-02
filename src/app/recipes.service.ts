@@ -9,8 +9,11 @@ export class RecipesService {
 
   constructor(private http:HttpClient) { }
 
-  getRecipes(path : string){
-    return this.http.get('http://localhost:3000/api' + path);
+  getRecipes(search: string){
+    if(!search)
+    return this.http.get('http://localhost:3000/api/recipes');
+    else
+    return this.http.get('http://localhost:3000/api/recipes?search_term=' + search)
   }
   addRecipe(data: any): Observable <any>{
     return this.http.post<any>('http://localhost:3000/api/addRecipe', data, {

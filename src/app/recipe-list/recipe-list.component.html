@@ -1,3 +1,8 @@
+<mat-toolbar>
+        <div class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
+        <span class="spacer"></span>
+        <div><img src="./assets/facebook.png" alt=""></div>
+</mat-toolbar>
 
   <div id="recipe_list_background">
     <div class="container">
@@ -12,11 +17,22 @@
                                   <div class="dropdown-button"><a [matMenuTriggerFor]="appMenu" (click)="getCategories()"><i class="material-icons">playlist_add</i></a></div>
                                   <!-- Dropdown Structure -->
                                     <mat-menu #appMenu="matMenu" [overlapTrigger]="false" xPosition="before">
-                                        <button mat-menu-item *ngFor="let category of categories">{{category}}</button>
+                                        <button mat-menu-item *ngFor="let category of categories" (click)="addCategory(category)">{{category}}</button>
                                     </mat-menu>
                                 </div>
                         </form>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                    <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let category of addedCategories" [selectable]="selectable"
+                                     [removable]="removable" (removed)="removeAddedCategory(category)">
+                              {{category}}
+                              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                          </mat-chip-list>
             </div>
         </div>
     </div>
@@ -53,9 +69,9 @@
             <p>{{recipe.instructions}}</p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button (click)="openDialog(recipe)">SE NÄRINGSVÄRDE</button>
+            <button mat-button class="btn-flat transparent" (click)="openDialog(recipe)">SE NÄRINGSVÄRDE</button>
             <span class="spacer"></span>
-            <button mat-button color="primary">DELA</button>
+            <button mat-button class="btn-flat">DELA</button>
           </mat-card-actions>
       </mat-card>
 </div>

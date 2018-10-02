@@ -69,7 +69,9 @@ export class NewRecipeFormComponent implements OnInit {
 
     // Add our category
     if ((value || '').trim()) {
-      this.categories.push(value.trim());
+      let cat = value.trim();
+      //Capitalizing string and pushing to categories
+      this.categories.push(cat[0].toUpperCase() + cat.slice(1));
     }
 
     // Reset the input value

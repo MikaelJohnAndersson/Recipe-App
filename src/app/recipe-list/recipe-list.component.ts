@@ -13,19 +13,25 @@ export class RecipeListComponent implements OnInit {
 
   public recipes;
   public categories;
+  public addedCategories;
   public href : string; 
   private search_form: FormGroup = this.fb.group({search_term : ['']});
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
 
   private selectedNumberOfPortions;
 
   constructor(private recipesService: RecipesService, private router : Router, private fb: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.addedCategories = [];
     this.selectedNumberOfPortions = [];
     //Passing in the component path to the service
     //After getting recipes, populating component $recipes and setting corresponding 
     //select value for number of servings. This value changes as the user changes the servings-values
-    this.recipesService.getRecipes(this.router.url).subscribe(
+    this.recipesService.getRecipes(this.search_form.get('search_term').value).subscribe(
       data => {
         this.recipes = data;
         for(let i = 0; i < this.recipes.length; i++){
@@ -36,7 +42,7 @@ export class RecipeListComponent implements OnInit {
     };
 
   onSubmit(){
-      this.recipesService.getRecipes(this.router.url + "?search_term=" + this.search_form.get('search_term').value).subscribe(
+      this.recipesService.getRecipes(this.search_form.get('search_term').value).subscribe(
         data => {
           this.recipes = data;
         });
@@ -52,6 +58,13 @@ export class RecipeListComponent implements OnInit {
           this.categories = data;
         }
       );
+    }
+    addCategory(category: string){
+      this.addedCategories.push(category);
+    }
+    removeAddedCategory(category: string){
+      let index = this.addedCategories.indexOf(category);
+      this.addedCategories.splice(index, 1);
     }
 
     openDialog(recipe: any): void {
