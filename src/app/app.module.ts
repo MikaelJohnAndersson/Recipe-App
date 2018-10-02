@@ -6,13 +6,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { RecipesService } from './recipes.service';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { RecipeListDialogComponent } from './recipe-list/recipe-list.component';
 import { NewRecipeFormComponent } from './new-recipe-form/new-recipe-form.component';
 import {RouterModule, Routes} from "@angular/router";
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatGridListModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatAutocompleteModule, MatCardModule, MatChipsModule } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { MatGridListModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatAutocompleteModule, MatCardModule, MatChipsModule,MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 
@@ -29,6 +29,10 @@ const appRoutes: Routes = [
     RecipeListComponent,
     NewRecipeFormComponent,
     NavigationComponent,
+    RecipeListDialogComponent
+  ],
+  entryComponents: [
+    RecipeListDialogComponent
   ],
   imports: [
     BrowserModule, 
@@ -55,10 +59,12 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     MatSnackBarModule,
-    MatChipsModule
+    MatChipsModule, 
+    MatDialogModule
   ],
   providers: [RecipesService, 
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

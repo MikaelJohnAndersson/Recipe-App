@@ -1,12 +1,28 @@
 
   <div id="recipe_list_background">
-    <div class="container">
-      <form [formGroup]="search_form" (ngSubmit)="onSubmit()">
-        <mat-form-field>
-          <input matInput placeholder="Sök på ett recept" id="searchField" formControlName="search_term">
-        </mat-form-field>
-      </form> 
-  </div>
+    <div class="container banner">
+          <form [formGroup]="search_form" (ngSubmit)="onSubmit()">
+            <div class="col-sm-8">
+                <mat-form-field color="warn" >
+                    <input matInput placeholder="Sök på ett recept" id="searchField" formControlName="search_term">
+                    <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+            </div>
+            <span>eller</span>
+            <div class="col-sm-3">
+                <mat-form-field>
+                    <mat-select placeholder="Filtrera på kategori">
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="4">4</mat-option>
+                        <mat-option value="6">6</mat-option>
+                        <mat-option value="8">8</mat-option>
+                        <mat-option value="10">10</mat-option>
+                        <mat-option value="12">12</mat-option>
+                    </mat-select>
+                </mat-form-field>  
+            </div>  
+          </form> 
+    </div>
   </div>
   
 <div class="container">
@@ -18,6 +34,10 @@
         <!--TODO: Add placeholder image-->
         <img mat-card-image src="{{recipe.imgUrl}}" alt="Recipe image">
         <mat-card-content>
+            <mat-chip-list>
+                <mat-chip *ngFor="let category of recipe.categories">{{category}}</mat-chip>
+            </mat-chip-list>
+            <br>
            <mat-form-field>
              <mat-select [(value)]="selectedNumberOfPortions[i]" placeholder="Antal portioner:">
               <mat-option value="2">2</mat-option>
@@ -34,20 +54,12 @@
             <br>
             <h5>Instruktioner:</h5>
             <p>{{recipe.instructions}}</p>
-            <h5>Näringsvärde per portion:</h5>
-            <!--Getting the total nutrient value per portion.-->
-            <span>Kcal: {{totalAmountPerPortion('en_kcal',recipe)}}gr<br></span>
-            <span>Protein: {{totalAmountPerPortion('protein',recipe)}}gr<br></span>
-            <span>Kolhydrater: {{totalAmountPerPortion('carbs',recipe)}}gr<br></span>
-            <span>Mättat fett: {{totalAmountPerPortion('sat_fat',recipe)}}gr<br></span>
-            <span>Omättat fett: {{totalAmountPerPortion('unsat_fat',recipe)}}gr<br></span>
-            <span>Fleromättat fett: {{totalAmountPerPortion('poly_unsat_fat',recipe)}}gr<br></span>
-            <span>Salt: {{totalAmountPerPortion('salt',recipe)}}gr<br></span>
-            <br>
-            <mat-chip-list>
-                <mat-chip *ngFor="let category of recipe.categories">{{category}}</mat-chip>
-            </mat-chip-list>
         </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="openDialog(recipe)">SE NÄRINGSVÄRDE</button>
+            <span class="spacer"></span>
+            <button mat-button color="primary">DELA</button>
+          </mat-card-actions>
       </mat-card>
 </div>
 
