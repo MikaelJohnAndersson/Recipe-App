@@ -1,27 +1,20 @@
 
   <div id="recipe_list_background">
-    <div class="container banner">
-          <form [formGroup]="search_form" (ngSubmit)="onSubmit()">
-            <div class="col-sm-8">
-                <mat-form-field color="warn" >
-                    <input matInput placeholder="Sök på ett recept" id="searchField" formControlName="search_term">
-                    <mat-icon matSuffix>search</mat-icon>
-                  </mat-form-field>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="nav-wrapper">
+                        <form [formGroup]="search_form" (ngSubmit)="onSubmit()">
+                                <div class="input-field">
+                                  <input matInput formControlName="search_term" id="search" type="search" placeholder="Sök på ett recept...">
+                                  <div class="search-icon"><label for="search"><i class="material-icons">search</i></label></div>
+                                  <div class="dropdown-button"><a href="#!" data-activates="dropdown1"  data-beloworigin="true"><i class="material-icons ">reorder</i></a></div>
+                                </div>
+                          <!-- Dropdown Trigger -->
+                        </form>
+                </div>
             </div>
-            <span>eller</span>
-            <div class="col-sm-3">
-                <mat-form-field>
-                    <mat-select placeholder="Filtrera på kategori">
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="4">4</mat-option>
-                        <mat-option value="6">6</mat-option>
-                        <mat-option value="8">8</mat-option>
-                        <mat-option value="10">10</mat-option>
-                        <mat-option value="12">12</mat-option>
-                    </mat-select>
-                </mat-form-field>  
-            </div>  
-          </form> 
+        </div>
     </div>
   </div>
   

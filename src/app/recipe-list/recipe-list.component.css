@@ -1,4 +1,22 @@
 
+form{
+  padding: 4px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.input-field label{
+  position:absolute; 
+  left:1rem; 
+  top : 0;}
+
+.dropdown-button a{
+  position:absolute; 
+  right:1rem; 
+  top : 0;}
+
+.nav-wrapper{
+  background: #FFFFFF; 
+}
+
 .card {
     max-width: 300px;
     vertical-align: top;
@@ -8,25 +26,6 @@
   mat-card{
     display: inline-block
   }
- 
-form{
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-  form * {
-    margin: 1%;
-    width: 100%;
-  }
-
- .banner{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
- }
 
   #recipe_list_background{
     width: 100%; 
