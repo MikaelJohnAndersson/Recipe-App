@@ -1,79 +1,86 @@
 <mat-toolbar>
-        <div class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
-        <span class="spacer"></span>
-        <div><img src="./assets/facebook.png" alt=""></div>
+    <div class="wrapper_logo"><img src="./assets/logo.png" alt="logo" class="logo"></div>
+    <span class="spacer"></span>
+    <div><img src="./assets/facebook.png" alt="Facebook logo"></div>
 </mat-toolbar>
-
-  <div id="recipe_list_background">
-    <div class="container">
-        <div class="row">
-            <div class="col s12">
-                <div class="nav-wrapper">
+<div class="body">
+    <div id="recipe_list_background">
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <div class="nav-wrapper">
                         <form [formGroup]="search_form" (ngSubmit)="onSubmit()">
-                                <div class="input-field">
-                                  <input matInput formControlName="search_term" id="search" type="search" placeholder="Sök på ett recept...">
-                                  <div class="search-icon"><label for="search"><i class="material-icons">search</i></label></div>
-                                  <!-- Dropdown Trigger -->
-                                  <div class="dropdown-button"><a [matMenuTriggerFor]="appMenu" (click)="getCategories()"><i class="material-icons">playlist_add</i></a></div>
-                                  <!-- Dropdown Structure -->
-                                    <mat-menu #appMenu="matMenu" [overlapTrigger]="false" xPosition="before">
-                                        <button mat-menu-item *ngFor="let category of categories" (click)="addCategory(category)">{{category}}</button>
-                                    </mat-menu>
-                                </div>
+                            <div class="input-field">
+                                <input matInput formControlName="search_term" id="search" type="search" placeholder="Sök på ett recept...">
+                                <div class="search-icon"><label for="search"><i class="material-icons">search</i></label></div>
+                                <!-- Dropdown Trigger -->
+                                <div class="dropdown-button"><a [matMenuTriggerFor]="appMenu" (click)="getCategories()"
+                                        matTooltip="Lägg till en eller flera kategorier" #tooltip="matTooltip"
+                                        (mouseEnter)="tooltip.toggle()"><i class="material-icons">playlist_add</i></a></div>
+                                <!-- Dropdown Structure -->
+                                <mat-menu #appMenu="matMenu" [overlapTrigger]="false" xPosition="before">
+                                    <button mat-menu-item *ngFor="let category of categories" (click)="addCategory(category)">{{category}}</button>
+                                </mat-menu>
+                            </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <mat-chip-list #chipList>
+                        <mat-chip *ngFor="let category of addedCategories" [selectable]="selectable" [removable]="removable"
+                            (removed)="removeAddedCategory(category)">
+                            {{category}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col s12">
-                    <mat-chip-list #chipList>
-                            <mat-chip *ngFor="let category of addedCategories" [selectable]="selectable"
-                                     [removable]="removable" (removed)="removeAddedCategory(category)">
-                              {{category}}
-                              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                            </mat-chip>
-                          </mat-chip-list>
-            </div>
-        </div>
     </div>
-  </div>
-  
-<div class="container">
-      <mat-card *ngFor="let recipe of recipes; let i = index" class="card">
-        <mat-card-header>
-          <mat-card-title><h5>{{recipe.name}}</h5></mat-card-title>
-          <mat-card-subtitle><h6>{{recipe.desc}}</h6></mat-card-subtitle>
-        </mat-card-header>
-        <!--TODO: Add placeholder image-->
-        <img mat-card-image src="{{recipe.imgUrl}}" alt="Recipe image">
-        <mat-card-content>
-            <mat-chip-list>
-                <mat-chip *ngFor="let category of recipe.categories">{{category}}</mat-chip>
-            </mat-chip-list>
-            <br>
-           <mat-form-field>
-             <mat-select [(value)]="selectedNumberOfPortions[i]" placeholder="Antal portioner:">
-              <mat-option value="2">2</mat-option>
-              <mat-option value="4">4</mat-option>
-              <mat-option value="6">6</mat-option>
-              <mat-option value="8">8</mat-option>
-              <mat-option value="10">10</mat-option>
-              <mat-option value="12">12</mat-option>
-             </mat-select>
-           </mat-form-field>
-            <h5>Ingredienser:</h5>
-            <!--Outputting name of ingredient, ingredient units divided by recipe servings to get amount per serving. Then multiplying with currently selected no. of portions.-->
-            <span *ngFor="let ingredient of recipe.ingredients">{{ingredient.name}}, {{(ingredient.units / recipe.servings) * selectedNumberOfPortions[i]}} {{ingredient.msr_unit}}<br></span>
-            <br>
-            <h5>Instruktioner:</h5>
-            <p>{{recipe.instructions}}</p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button class="btn-flat transparent" (click)="openDialog(recipe)">SE NÄRINGSVÄRDE</button>
-            <span class="spacer"></span>
-            <button mat-button class="btn-flat">DELA</button>
-          </mat-card-actions>
-      </mat-card>
+    <div class="card-container">
+        <mat-card *ngFor="let recipe of recipes; let i = index" class="card">
+            <mat-card-header>
+                <mat-card-title>
+                    <h5>{{recipe.name}}</h5>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <h6>{{recipe.desc}}</h6>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <!--TODO: Add placeholder image-->
+            <img mat-card-image src="{{recipe.imgUrl}}" alt="Recipe image">
+            <mat-card-content>
+                <mat-chip-list>
+                    <mat-chip *ngFor="let category of recipe.categories">{{category}}</mat-chip>
+                </mat-chip-list>
+                <br>
+                <mat-form-field>
+                    <mat-select [(value)]="selectedNumberOfPortions[i]" placeholder="Antal portioner:">
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="4">4</mat-option>
+                        <mat-option value="6">6</mat-option>
+                        <mat-option value="8">8</mat-option>
+                        <mat-option value="10">10</mat-option>
+                        <mat-option value="12">12</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <h5>Ingredienser:</h5>
+                <!--Outputting name of ingredient, ingredient units divided by recipe servings to get amount per serving. Then multiplying with currently selected no. of portions.-->
+                <span *ngFor="let ingredient of recipe.ingredients">{{ingredient.name}}, {{(ingredient.units /
+                    recipe.servings) * selectedNumberOfPortions[i]}} {{ingredient.msr_unit}}<br></span>
+                <br>
+                <div *ngIf="expanded[i]">
+                    <h5>Intruktioner:</h5>
+                    <p>{{recipe.instructions}}</p>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button class="btn-flat transparent" (click)="showInstr(i)">VISA/DÖLJ INSTRUKTIONER</button>
+                <span class="spacer"></span>
+                <button mat-button class="btn-flat transparent" (click)="openDialog(recipe)">SE NÄRINGSVÄRDE</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>
-
-  

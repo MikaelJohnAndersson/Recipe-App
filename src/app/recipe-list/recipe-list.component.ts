@@ -7,7 +7,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css']
+  styleUrls: ['./recipe-list.component.css', '../../../node_modules/ng-masonry-grid/ng-masonry-grid.css']
 })
 export class RecipeListComponent implements OnInit {
 
@@ -15,6 +15,8 @@ export class RecipeListComponent implements OnInit {
   public categories;
   public addedCategories;
   public href : string; 
+  public expanded;
+  
   private search_form: FormGroup = this.fb.group({search_term : ['']});
   visible = true;
   selectable = true;
@@ -26,12 +28,13 @@ export class RecipeListComponent implements OnInit {
   constructor(private recipesService: RecipesService, private router : Router, private fb: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.expanded = [];
     this.addedCategories = [];
     this.selectedNumberOfPortions = [];
     //Passing in the component path to the service
     //After getting recipes, populating component $recipes and setting corresponding 
     //select value for number of servings. This value changes as the user changes the servings-values
-    this.recipesService.getRecipes(this.search_form.get('search_term').value).subscribe(
+    this.recipesService.getRecipes(this.search_form.get('search_term').value, this.addedCategories).subscribe(
       data => {
         this.recipes = data;
         for(let i = 0; i < this.recipes.length; i++){
@@ -42,7 +45,7 @@ export class RecipeListComponent implements OnInit {
     };
 
   onSubmit(){
-      this.recipesService.getRecipes(this.search_form.get('search_term').value).subscribe(
+      this.recipesService.getRecipes(this.search_form.get('search_term').value, this.addedCategories).subscribe(
         data => {
           this.recipes = data;
         });
@@ -61,10 +64,18 @@ export class RecipeListComponent implements OnInit {
     }
     addCategory(category: string){
       this.addedCategories.push(category);
+      this.onSubmit();
     }
     removeAddedCategory(category: string){
       let index = this.addedCategories.indexOf(category);
       this.addedCategories.splice(index, 1);
+      this.onSubmit();
+    }
+    showInstr(index:any){
+      if(this.expanded[index])
+      this.expanded[index] = false; 
+      else
+      this.expanded[index] = true; 
     }
 
     openDialog(recipe: any): void {

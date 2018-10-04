@@ -30,4 +30,13 @@ router.get("/categories", function(req, res){
     });
 });
 
+router.post('/', function(req, res){
+    let search_term = req.query.search_term; 
+    let categories = req.body;
+    db.recipes.find({name: {"$regex" : search_term, '$options' : 'i'}, categories: {$all : categories}},function(err, recipes){
+        if (err) throw err;
+        res.json(recipes);
+    });
+});
+
 module.exports = router;

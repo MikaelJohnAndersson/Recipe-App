@@ -1,9 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { IngredientService } from '../ingredient.service';
-import {FormBuilder, FormGroup, FormArray} from '@angular/forms';
-import { RecipesService } from '../recipes.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatChipInputEvent} from '@angular/material';
+import {
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {
+  IngredientService
+} from '../ingredient.service';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray
+} from '@angular/forms';
+import {
+  RecipesService
+} from '../recipes.service';
+import {
+  MatSnackBar
+} from '@angular/material/snack-bar';
+import {
+  MatChipInputEvent
+} from '@angular/material';
+import {
+  MatTable
+} from '@angular/material';
 
 @Component({
   selector: 'app-new-recipe-form',
@@ -13,14 +32,17 @@ import {MatChipInputEvent} from '@angular/material';
 export class NewRecipeFormComponent implements OnInit {
 
   public ingredientAutoCompleteValues;
-  private add_recipe_form: FormGroup; 
-  private categories; 
+  private add_recipe_form: FormGroup;
+  private categories;
+  public addedIngredients;
+  public columnsToDisplay;
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
+  @ViewChild(MatTable) table: MatTable < any > ;
 
-  constructor(private ingredientService: IngredientService, private fb: FormBuilder, private recipesService: RecipesService, public snackBar: MatSnackBar) { }
+  constructor(private ingredientService: IngredientService, private fb: FormBuilder, private recipesService: RecipesService, public snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.add_recipe_form = this.fb.group({
@@ -28,39 +50,38 @@ export class NewRecipeFormComponent implements OnInit {
       recipe_desc: [''],
       add_category: [''],
       recipe_servings: [''],
-      ingredients: this.fb.array([
-        this.fb.group({
-          name: [''],
-          units: [''],
-          msr_unit: [''], 
-          eq_grams: ['']
-        })
-      ]),
+      ingredients: this.fb.group({
+        name: [''],
+        units: [''],
+        msr_unit: [''],
+        eq_grams: ['']
+      }),
       recipe_instr: [''],
       img_url: ['']
     });
 
     this.categories = [];
-  }
-  
-  onIngredientInputEvent(event: any) { 
-    this.ingredientService.autoCompleteIngredientName(event.target.value).subscribe(
-      data => {this.ingredientAutoCompleteValues = data;}
-    );
+    this.addedIngredients = [];
+    this.columnsToDisplay = ['name', 'units', 'msr_unit', 'eq_grams']
   }
 
-  get ingredients() {
-    return this.add_recipe_form.get('ingredients') as FormArray;
+  onIngredientInputEvent(event: any) {
+    this.ingredientService.autoCompleteIngredientName(event.target.value).subscribe(
+      data => {
+        this.ingredientAutoCompleteValues = data;
+      }
+    );
   }
 
   //Pushing new group of ingredient form controls on add ingredient
   addIngredient() {
-    this.ingredients.push(this.fb.group({
-      name: [''],
-      units: [''],
-      msr_unit: [''], 
-      eq_grams: ['']
-    }));
+    this.addedIngredients.push(this.getValue("ingredients"));
+    this.table.renderRows();
+  }
+  removeIngredient(ingredient: any) {
+    let index = this.addedIngredients.indexOf(ingredient);
+    this.addedIngredients.splice(index, 1);
+    this.table.renderRows();
   }
 
   addCategory(event: MatChipInputEvent): void {
@@ -87,32 +108,34 @@ export class NewRecipeFormComponent implements OnInit {
     }
   }
 
-  onSubmit(){
-    
+  onSubmit() {
+
     let newRecipe = {
-      name: this.getValue("recipe_name"), 
-      desc: this.getValue("recipe_desc"), 
+      name: this.getValue("recipe_name"),
+      desc: this.getValue("recipe_desc"),
       categories: this.categories,
-      servings: this.getValue("recipe_servings"), 
-      ingredients: this.getValue("ingredients"),
-      instructions: this.getValue("recipe_instr"), 
+      servings: this.getValue("recipe_servings"),
+      ingredients: this.addedIngredients,
+      instructions: this.getValue("recipe_instr"),
       imgUrl: this.getValue("img_url") ? this.getValue("img_url") : "N/A"
-  }
-    
-    this.ingredientService.getNutrients(newRecipe.ingredients).subscribe(ingredientsWithNutrients =>{
+    }
+
+    this.ingredientService.getNutrients(newRecipe.ingredients).subscribe(ingredientsWithNutrients => {
       newRecipe.ingredients = ingredientsWithNutrients;
       this.recipesService.addRecipe(newRecipe).subscribe(data => this.snackBar.open("Recipe added!"));
       this.resetForm();
     });
   }
 
-  getValue(field: string){
+  getValue(field: string) {
     return this.add_recipe_form.get(field).value;
   }
 
-  resetForm(){
+  resetForm() {
     this.add_recipe_form.reset();
     this.categories = [];
+    this.addedIngredients = [];
+    this.table.renderRows();
   }
 
 }

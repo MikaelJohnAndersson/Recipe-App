@@ -1,81 +1,112 @@
 <div class="container">
-    <div id="recipe_form">
-        <!--TODO: Implement form validation-->
-        <form [formGroup]="add_recipe_form" (ngSubmit)="onSubmit()">
-        <mat-form-field >
-          <input matInput placeholder="Recipe name" formControlName="recipe_name" required>
-        </mat-form-field>
-      
-        <mat-form-field>
-          <input matInput placeholder="Short description" formControlName="recipe_desc">
-        </mat-form-field>
+        <div id="recipe_form">
+                <!--TODO: Implement form validation-->
+                <form [formGroup]="add_recipe_form" (ngSubmit)="onSubmit()">
+                        <mat-form-field>
+                                <input matInput placeholder="Namn" formControlName="recipe_name" required>
+                        </mat-form-field>
 
-        <mat-form-field hintLabel="Add the category and press enter.">
-                        <mat-chip-list #chipList>
-                          <mat-chip *ngFor="let category of categories" [selectable]="selectable"
-                                   [removable]="removable" (removed)="removeCategory(category)">
-                            {{category}}
-                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                          </mat-chip>
-                          <input placeholder="Add categories..."
-                                 [matChipInputFor]="chipList"
-                                 [matChipInputAddOnBlur]="addOnBlur"
-                                 (matChipInputTokenEnd)="addCategory($event)">
-                        </mat-chip-list>
-        </mat-form-field>
+                        <mat-form-field>
+                                <input matInput placeholder="Kort beskrivning" formControlName="recipe_desc">
+                        </mat-form-field>
 
-        <div>
-        <mat-form-field>
-                <mat-select placeholder="No. of servings"required>
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="4">4</mat-option>
-                        <mat-option value="6">6</mat-option>
-                        <mat-option value="8">8</mat-option>
-                        <mat-option value="10">10</mat-option>
-                        <mat-option value="12">12</mat-option>
-                </mat-select>
-        </mat-form-field>
-        </div>
+                        <mat-form-field hintLabel="Ange kategori och tryck enter">
+                                <mat-chip-list #chipList>
+                                        <mat-chip *ngFor="let category of categories" [selectable]="selectable"
+                                                [removable]="removable" (removed)="removeCategory(category)">
+                                                {{category}}
+                                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                        </mat-chip>
+                                        <input placeholder="Kategorier" [matChipInputFor]="chipList"
+                                                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addCategory($event)">
+                                </mat-chip-list>
+                        </mat-form-field>
 
-        <div formArrayName="ingredients">
-                <span>Ingredients:</span>
-                        <!--TODO: Provide getter for ingredients-->
-                        <div *ngFor="let group of add_recipe_form.controls.ingredients.controls; let i = index" class="ingredientsForm">
-                                <div [formGroup]="add_recipe_form.controls.ingredients.controls[i]">
-                                        <span>{{i + 1}}: </span>
+                        <div>
+                                <mat-form-field>
+                                        <mat-select placeholder="Antal portioner" required formControlName="recipe_servings">
+                                                <mat-option value="2">2</mat-option>
+                                                <mat-option value="4">4</mat-option>
+                                                <mat-option value="6">6</mat-option>
+                                                <mat-option value="8">8</mat-option>
+                                                <mat-option value="10">10</mat-option>
+                                                <mat-option value="12">12</mat-option>
+                                        </mat-select>
+                                </mat-form-field>
+                        </div>
+
+                        <div formArrayName="ingredients">
+                                <span>Lägg till ingrediens:</span>
+                                <!--TODO: Provide getter for ingredients-->
+                                <div class="ingredientsForm">
                                         <mat-form-field>
-                                                <input matInput placeholder="Ingredient name" (keyup)="onIngredientInputEvent($event)" [matAutocomplete]="auto" [formControlName]="'name'" required>
+                                                <input matInput placeholder="Namn" (keyup)="onIngredientInputEvent($event)"
+                                                        [matAutocomplete]="auto" [formControlName]="'name'" required>
                                         </mat-form-field>
                                         <mat-autocomplete #auto="matAutocomplete">
-                                                <mat-option *ngFor="let ingredientAutoCompleteValue of ingredientAutoCompleteValues" [value]="ingredientAutoCompleteValue.Namn">{{ingredientAutoCompleteValue.Namn}}</mat-option>
+                                                <mat-option *ngFor="let ingredientAutoCompleteValue of ingredientAutoCompleteValues"
+                                                        [value]="ingredientAutoCompleteValue.Namn">{{ingredientAutoCompleteValue.Namn}}</mat-option>
                                         </mat-autocomplete>
-                                        <mat-form-field hintLabel="Must be a number." >
-                                                <input matInput placeholder="Ingredient units" [formControlName]="'units'" required>
+                                        <mat-form-field hintLabel="Måste vara ett nummer">
+                                                <input matInput placeholder="Enheter" [formControlName]="'units'"
+                                                        required>
                                         </mat-form-field>
-                                        <mat-form-field hintLabel="Eg.&quot;st&quot;, &quot;gr&quot;,&quot;ltr&quot; " >
-                                                <input matInput placeholder="Ingredient measuring unit" [formControlName]="'msr_unit'" required>
+                                        <mat-form-field hintLabel="Ex.&quot;st&quot;, &quot;gr&quot;,&quot;ltr&quot; ">
+                                                <input matInput placeholder="Måttenhet" [formControlName]="'msr_unit'"
+                                                        required>
                                         </mat-form-field>
                                         <mat-form-field>
-                                                <input matInput placeholder="Ingredient eq in grams" [formControlName]="'eq_grams'" required>
+                                                <input matInput placeholder="Motsvarande vikt i gram" [formControlName]="'eq_grams'"
+                                                        required>
                                         </mat-form-field>
                                 </div>
+                                <div>
+                                        <button type="button" mat-raised-button (click)="addIngredient()">Add new
+                                                ingredient</button>
+                                </div>
                         </div>
-                <div>
-                <button type="button" mat-raised-button (click)= "addIngredient()">Add new ingredient</button>
-                </div>
+                        <span>Tillagda ingredienser (klicka för att ta bort):</span>
+                        <div class="table-wrapper">
+                                <table mat-table [dataSource]="addedIngredients" #table>
+
+                                        <ng-container matColumnDef="name">
+                                                <th mat-header-cell *matHeaderCellDef> Namn </th>
+                                                <td mat-cell *matCellDef="let ingredient"> {{ingredient.name}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="units">
+                                                <th mat-header-cell *matHeaderCellDef> Enheter </th>
+                                                <td mat-cell *matCellDef="let ingredient"> {{ingredient.units}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="msr_unit">
+                                                <th mat-header-cell *matHeaderCellDef> Måttenhet </th>
+                                                <td mat-cell *matCellDef="let ingredient"> {{ingredient.msr_unit}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="eq_grams">
+                                                <th mat-header-cell *matHeaderCellDef> Motsvarande vikt i gram </th>
+                                                <td mat-cell *matCellDef="let ingredient"> {{ingredient.eq_grams}} </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" (click)="removeIngredient(row)"></tr>
+                                </table>
+                        </div>
+
+
+                        <mat-form-field>
+                                <textarea rows="10" matInput placeholder="Instruktioner" [formControlName]="'recipe_instr'"
+                                        required></textarea>
+                        </mat-form-field>
+
+                        <!--TODO: Implement image upload-->
+                        <mat-form-field>
+                                <input matInput placeholder="IMG url" [formControlName]="'img_url'">
+                        </mat-form-field>
+
+                        <div><button mat-raised-button type="submit">Lägg till recept</button></div>
+                </form>
         </div>
-
-        <mat-form-field>
-                <textarea rows="10" matInput placeholder="Instructions" [formControlName]="'recipe_instr'" required></textarea>
-        </mat-form-field>
-
-       <!--TODO: Implement image upload-->
-        <mat-form-field>
-                <input matInput placeholder="IMG url" [formControlName]="'img_url'">
-        </mat-form-field>
-
-    <div><button mat-raised-button type="submit">Add recipe</button></div>
-    </form>
-    </div>  <!--recipeForm-->
+        <!--recipeForm-->
 </div>
-      

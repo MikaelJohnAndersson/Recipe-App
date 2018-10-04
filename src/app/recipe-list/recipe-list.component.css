@@ -1,5 +1,9 @@
 @import '../../../node_modules/materialize-css/dist/css/materialize.css';
 
+.body{
+  background-color: #ffffff;
+}
+
 .sidenav-container {
   height: 100%;
 }
@@ -9,6 +13,7 @@ mat-toolbar{
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  background-color: #f2f2f2f2
 }
 
 .mat-toolbar.mat-primary {
@@ -46,15 +51,17 @@ form{
   background: #FFFFFF; 
 }
 
-.card {
-    max-width: 300px;
-    vertical-align: top;
-    margin: 1%;
-  }
-
-  mat-card{
-    display: inline-block
-  }
+.card-container{
+  margin-top:2%;
+  display: flex;
+  flex-direction: row; 
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+.card{
+  max-width: 30%;
+}
 
   #recipe_list_background{
     width: 100%; 

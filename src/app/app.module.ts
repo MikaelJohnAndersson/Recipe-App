@@ -10,14 +10,15 @@ import { RecipeListDialogComponent } from './recipe-list/recipe-list.component';
 import { NewRecipeFormComponent } from './new-recipe-form/new-recipe-form.component';
 import {RouterModule, Routes} from "@angular/router";
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatGridListModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatAutocompleteModule, MatCardModule, MatChipsModule,MatMenuModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { MatGridListModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatAutocompleteModule, MatCardModule, MatChipsModule,MatMenuModule, MatTooltipModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import { NgMasonryGridModule } from 'ng-masonry-grid';
 
 
 //TODO: Set up starting route/homepage properly
 const appRoutes: Routes = [
-  { path: 'recipes', component: RecipeListComponent, data: { title: 'Recipe Component' }}, 
+  { path: '', component: RecipeListComponent, data: { title: 'Recipe Component' }}, 
   { path: 'addRecipe', component: NewRecipeFormComponent, data: { title: 'Add recipe Component' } }, 
   ];
 
@@ -59,7 +60,9 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatChipsModule, 
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTooltipModule,
+    NgMasonryGridModule
   ],
   providers: [RecipesService, 
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
