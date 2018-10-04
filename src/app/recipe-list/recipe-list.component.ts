@@ -102,10 +102,6 @@ export class RecipeListDialogComponent {
           else
           return Number((total).toFixed(1)); 
       }
-
-    onOkClick(): void {
-      this.dialogRef.close();
-    }
 }
 
 
