@@ -76,6 +76,7 @@ export class NewRecipeFormComponent implements OnInit {
   //Pushing new group of ingredient form controls on add ingredient
   addIngredient() {
     this.addedIngredients.push(this.getValue("ingredients"));
+    this.add_recipe_form.get('ingredients').reset();
     this.table.renderRows();
   }
   removeIngredient(ingredient: any) {
