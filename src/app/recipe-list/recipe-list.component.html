@@ -42,7 +42,7 @@
     <div class="masonry-container">
             <div class="grid-sizer"></div>
             <div class="grid-item"></div>
-    <ngx-masonry [useImagesLoaded]="true" [options]="{ gutter: 10}">
+    <ngx-masonry [useImagesLoaded]="true" [options]="{ gutter: 10, fitWidth: true}">
         <ngxMasonryItem class="masonry-item" *ngFor="let recipe of recipes; let i = index">
         <mat-card class="card">
             <mat-card-header>

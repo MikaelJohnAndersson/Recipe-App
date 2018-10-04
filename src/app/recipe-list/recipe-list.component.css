@@ -51,10 +51,14 @@ form{
   background: #FFFFFF; 
 }
 
+
 .masonry-item{
-  width: 30%;
-  position: relative
+  width: 400px;
 }
+ngx-masonry{
+  margin: 0 auto; 
+}
+
 
   #recipe_list_background{
     width: 100%; 
