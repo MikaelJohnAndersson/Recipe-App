@@ -13,7 +13,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatGridListModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatAutocompleteModule, MatCardModule, MatChipsModule,MatMenuModule, MatTooltipModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
-import { NgMasonryGridModule } from 'ng-masonry-grid';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 
 //TODO: Set up starting route/homepage properly
@@ -62,7 +62,7 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatMenuModule,
     MatTooltipModule,
-    NgMasonryGridModule
+    NgxMasonryModule
   ],
   providers: [RecipesService, 
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},

@@ -39,8 +39,12 @@
             </div>
         </div>
     </div>
-    <div class="card-container">
-        <mat-card *ngFor="let recipe of recipes; let i = index" class="card">
+    <div class="masonry-container">
+            <div class="grid-sizer"></div>
+            <div class="grid-item"></div>
+    <ngx-masonry [useImagesLoaded]="true" [options]="{ gutter: 10}">
+        <ngxMasonryItem class="masonry-item" *ngFor="let recipe of recipes; let i = index">
+        <mat-card class="card">
             <mat-card-header>
                 <mat-card-title>
                     <h5>{{recipe.name}}</h5>
@@ -82,5 +86,7 @@
                 <button mat-button class="btn-flat transparent" (click)="openDialog(recipe)">SE NÄRINGSVÄRDE</button>
             </mat-card-actions>
         </mat-card>
-    </div>
+    </ngxMasonryItem>
+    </ngx-masonry>
+</div>
 </div>

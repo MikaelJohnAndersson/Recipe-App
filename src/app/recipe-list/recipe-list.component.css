@@ -51,16 +51,9 @@ form{
   background: #FFFFFF; 
 }
 
-.card-container{
-  margin-top:2%;
-  display: flex;
-  flex-direction: row; 
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-evenly;
-}
-.card{
-  max-width: 30%;
+.masonry-item{
+  width: 30%;
+  position: relative
 }
 
   #recipe_list_background{
