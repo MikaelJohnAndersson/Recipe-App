@@ -15,7 +15,6 @@ export class RecipeListComponent implements OnInit {
   public categories;
   public addedCategories;
   public href : string; 
-  public expanded;
   
   private search_form: FormGroup = this.fb.group({search_term : ['']});
   visible = true;
@@ -28,7 +27,6 @@ export class RecipeListComponent implements OnInit {
   constructor(private recipesService: RecipesService, private router : Router, private fb: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.expanded = [];
     this.addedCategories = [];
     this.selectedNumberOfPortions = [];
     //Passing in the component path to the service
@@ -70,12 +68,6 @@ export class RecipeListComponent implements OnInit {
       let index = this.addedCategories.indexOf(category);
       this.addedCategories.splice(index, 1);
       this.onSubmit();
-    }
-    showInstr(index:any){
-      if(this.expanded[index])
-      this.expanded[index] = false; 
-      else
-      this.expanded[index] = true; 
     }
 
     openDialog(recipe: any): void {
