@@ -4,6 +4,9 @@
                 <form [formGroup]="add_recipe_form" (ngSubmit)="onSubmit()">
                         <mat-form-field>
                                 <input matInput placeholder="Namn" formControlName="recipe_name" required>
+                                <mat-error *ngFor="let validation of validation_messages.recipe_name">
+                                        <mat-error class="error-message" *ngIf="recipe_name.hasError(validation.type)">{{validation.message}}</mat-error>
+                                </mat-error>
                         </mat-form-field>
 
                         <mat-form-field>
@@ -32,6 +35,9 @@
                                                 <mat-option value="10">10</mat-option>
                                                 <mat-option value="12">12</mat-option>
                                         </mat-select>
+                                        <mat-error *ngFor="let validation of validation_messages.recipe_servings">
+                                                <mat-error class="error-message" *ngIf="recipe_servings.hasError(validation.type)">{{validation.message}}</mat-error>
+                                        </mat-error>
                                 </mat-form-field>
                         </div>
 
@@ -40,15 +46,18 @@
                                 <!--TODO: Provide getter for ingredients-->
                                 <div class="ingredientsForm">
                                         <mat-form-field>
-                                                <input matInput placeholder="Namn" (keyup)="onIngredientInputEvent($event)"
+                                                <input type="text" matInput placeholder="Namn" (keyup)="onIngredientInputEvent($event)"
                                                         [matAutocomplete]="auto" [formControlName]="'name'" required>
+                                                <mat-error *ngFor="let validation of validation_messages.ingredient_name">
+                                                        <mat-error class="error-message" *ngIf="ingredient_name.hasError(validation.type)">{{validation.message}}</mat-error>
+                                                </mat-error>
                                         </mat-form-field>
                                         <mat-autocomplete #auto="matAutocomplete">
                                                 <mat-option *ngFor="let ingredientAutoCompleteValue of ingredientAutoCompleteValues"
                                                         [value]="ingredientAutoCompleteValue.Namn">{{ingredientAutoCompleteValue.Namn}}</mat-option>
                                         </mat-autocomplete>
-                                        <mat-form-field hintLabel="Måste vara ett nummer">
-                                                <input matInput placeholder="Enheter" [formControlName]="'units'"
+                                        <mat-form-field>
+                                                <input matInput type="number" placeholder="Enheter" [formControlName]="'units'"
                                                         required>
                                         </mat-form-field>
                                         <mat-form-field hintLabel="Ex.&quot;st&quot;, &quot;gr&quot;,&quot;ltr&quot; ">
@@ -56,13 +65,15 @@
                                                         required>
                                         </mat-form-field>
                                         <mat-form-field>
-                                                <input matInput placeholder="Motsvarande vikt i gram" [formControlName]="'eq_grams'"
-                                                        required>
+                                                <input matInput type="number" placeholder="Total vikt i gram"
+                                                        [formControlName]="'eq_grams'" required>
                                         </mat-form-field>
                                 </div>
                                 <div>
-                                        <button type="button" mat-raised-button (click)="addIngredient()">Add new
-                                                ingredient</button>
+                                        <button *ngIf="ingredients.valid" type="button" mat-raised-button (click)="addIngredient()">Lägg
+                                                till ingrediens</button>
+                                        <button *ngIf="!ingredients.valid" type="button" mat-raised-button disabled>Lägg
+                                                till ingrediens</button>
                                 </div>
                         </div>
                         <span>Tillagda ingredienser (klicka för att ta bort):</span>
@@ -98,6 +109,9 @@
                         <mat-form-field>
                                 <textarea rows="10" matInput placeholder="Instruktioner" [formControlName]="'recipe_instr'"
                                         required></textarea>
+                                <mat-error *ngFor="let validation of validation_messages.recipe_instr">
+                                        <mat-error class="error-message" *ngIf="recipe_instr.hasError(validation.type)">{{validation.message}}</mat-error>
+                                </mat-error>
                         </mat-form-field>
 
                         <!--TODO: Implement image upload-->
@@ -105,7 +119,8 @@
                                 <input matInput placeholder="IMG url" [formControlName]="'img_url'">
                         </mat-form-field>
 
-                        <div><button mat-raised-button type="submit">Lägg till recept</button></div>
+                        <div><button mat-raised-button type="submit" *ngIf="form.valid">Lägg till recept</button></div>
+                        <div><button mat-raised-button disabled type="submit" *ngIf="!form.valid">Lägg till recept</button></div>
                 </form>
         </div>
         <!--recipeForm-->

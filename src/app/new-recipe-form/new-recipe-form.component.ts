@@ -1,28 +1,10 @@
-import {
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import {
-  IngredientService
-} from '../ingredient.service';
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray
-} from '@angular/forms';
-import {
-  RecipesService
-} from '../recipes.service';
-import {
-  MatSnackBar
-} from '@angular/material/snack-bar';
-import {
-  MatChipInputEvent
-} from '@angular/material';
-import {
-  MatTable
-} from '@angular/material';
+import {Component,OnInit,ViewChild} from '@angular/core';
+import {IngredientService} from '../ingredient.service';
+import {FormBuilder,FormGroup,Validators, FormControl} from '@angular/forms';
+import {RecipesService} from '../recipes.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatChipInputEvent} from '@angular/material';
+import {MatTable} from '@angular/material';
 
 @Component({
   selector: 'app-new-recipe-form',
@@ -36,41 +18,72 @@ export class NewRecipeFormComponent implements OnInit {
   private categories;
   public addedIngredients;
   public columnsToDisplay;
+  public validIngredients;
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
   @ViewChild(MatTable) table: MatTable < any > ;
 
+  validation_messages = {
+    recipe_name: [
+      {type :"required", message: "Receptnamn måste anges!"},
+      {type :"minlength", message: "Receptnamn måste vara minst 3 bokstäver!"},
+      {type :"maxlength", message: "Receptnamn får vara max 25 bokstäver!"}
+    ], 
+    recipe_servings: [
+      {type: "required", message: "Antal portioner måste anges!"}
+    ], 
+    ingredient_name: [
+      {type :"required", message: "Ingrediensnamn måste anges!"},
+      {type: "inValidIngredient", message: "Ingrediensen finns inte!"}
+    ], 
+    recipe_instr:[
+      {type:"required", message:"Instruktioner måste anges!"}
+    ]
+  };
+
   constructor(private ingredientService: IngredientService, private fb: FormBuilder, private recipesService: RecipesService, public snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.add_recipe_form = this.fb.group({
-      recipe_name: [''],
+      recipe_name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
       recipe_desc: [''],
       add_category: [''],
-      recipe_servings: [''],
+      recipe_servings: ['', Validators.required],
       ingredients: this.fb.group({
-        name: [''],
-        units: [''],
-        msr_unit: [''],
-        eq_grams: ['']
+        name: ['',Validators.compose([this.inValidIngredient.bind(this), Validators.required])],
+        units: ['', Validators.required],
+        msr_unit: ['', Validators.required],
+        eq_grams: ['', Validators.required]
       }),
-      recipe_instr: [''],
+      recipe_instr: ['', Validators.required],
       img_url: ['']
     });
 
     this.categories = [];
     this.addedIngredients = [];
-    this.columnsToDisplay = ['name', 'units', 'msr_unit', 'eq_grams']
+    this.columnsToDisplay = ['name', 'units', 'msr_unit', 'eq_grams']; 
+    this.getValidIngredients();
+  }
+
+  get form(){return this.add_recipe_form;}
+  get ingredients(){return this.add_recipe_form.get('ingredients');}
+  get recipe_servings(){return this.add_recipe_form.get('recipe_servings');}
+  get ingredient_name(){return this.add_recipe_form.get('ingredients').get('name');}
+  get recipe_instr(){return this.add_recipe_form.get('recipe_instr');}
+
+  get recipe_name(){
+    return this.add_recipe_form.get('recipe_name');
   }
 
   onIngredientInputEvent(event: any) {
+    if(event.target.value){
     this.ingredientService.autoCompleteIngredientName(event.target.value).subscribe(
       data => {
         this.ingredientAutoCompleteValues = data;
-      }
-    );
+      });
+    }
   }
 
   //Pushing new group of ingredient form controls on add ingredient
@@ -139,4 +152,17 @@ export class NewRecipeFormComponent implements OnInit {
     this.table.renderRows();
   }
 
+  getValidIngredients(){
+    this.ingredientService.getAllIngredientNames().subscribe(data =>{
+      this.validIngredients = data;
+    });
+  }
+
+  inValidIngredient(fc: FormControl){
+    if(fc.touched && fc.value){
+        if(!this.validIngredients.includes(fc.value))
+        return ({inValidIngredient: true});
+    }
+    return (null);
+  }
 }

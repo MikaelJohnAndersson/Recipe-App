@@ -3,6 +3,14 @@ const router = express.Router();
 const mongojs = require('mongojs');
 var db = mongojs("mongodb://localhost:27017/recipedb", ["recipes", "nutrients"]);
 
+
+router.get("/all", function(req, res){
+    db.nutrients.find(function(err, nutrients){
+        let names = nutrients.map(ingr => ingr.Namn);
+        res.json(names);
+    });
+});
+
 router.post('/nutrients', function(req, res){
     let ingredients = req.body;
     let names = ingredients.map(ingredient => ingredient.name);

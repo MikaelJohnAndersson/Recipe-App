@@ -9,6 +9,10 @@ export class IngredientService {
 
   constructor(private http: HttpClient) { }
 
+  getAllIngredientNames(){
+    return this.http.get("http://localhost:3000/api/ingredients/all");
+  }
+
   autoCompleteIngredientName(startOfName : string){
     return this.http.get('http://localhost:3000/api/ingredients/autocomplete/' + startOfName);
   }
